@@ -6,7 +6,7 @@
 <body>
 	<header>
 		<h1>Reservation System</h1>
-		<h2>Main Page</h2>
+		<h2>Home</h2>
 	</header>
 	<nav>
 		<?php include '../utility/nav.php'?>

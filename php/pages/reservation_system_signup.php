@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Reservatation System</title>
-	<script type="text/javascript" src="jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="signup_js_functions.js"></script>
+	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="../../js/signup_js_functions.js"></script>
 </head>
 <body>
 	<header>
@@ -11,11 +11,11 @@
 		<h2>Sign Up</h2>
 	</header>
 	<nav>
-		<?php include 'nav.php'?>
+		<?php include '../utility/nav.php'?>
 	</nav>
 	<section>
 		<?php 
-			include 'db_functions.php';
+			include '../utility/db_functions.php';
 			if ($_SERVER['REQUEST_METHOD']=='POST'){
 				try {
 					$conn_id = connect_to_project_db();
@@ -64,7 +64,7 @@
 		</form>
 	</section>
 	<footer>
-		<?php include 'footer.php';?>
+		<?php include '../utility/footer.php';?>
 	</footer>
 </body>
 </html>

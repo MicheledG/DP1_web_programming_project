@@ -9,7 +9,7 @@
 		<h2>Main Page</h2>
 	</header>
 	<nav>
-		<?php include 'nav.php'?>
+		<?php include '../utility/nav.php'?>
 	</nav>
 	<section>
 		<table>
@@ -25,7 +25,7 @@
 		</table>
 	</section>
 	<footer>
-		<?php include 'footer.php'?>
+		<?php include '../utility/footer.php'?>
 	</footer>
 </body>
 </html>

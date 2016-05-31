@@ -9,7 +9,7 @@
 	<h2>My Reservations</h2>
 	</header>
 	<nav>
-	<?php include 'nav.php'?>
+	<?php include '../utility/nav.php'?>
 	</nav>
 	<section>
 		<form>
@@ -29,7 +29,7 @@
 		</form>
 	</section>
 	<footer>
-		<?php include 'footer.php';?>
+		<?php include '../utility/footer.php';?>
 	</footer>
 </body>
 </html>

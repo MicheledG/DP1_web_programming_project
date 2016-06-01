@@ -6,6 +6,6 @@ function clearSignupForm(){
 	$(".user_input").val("");
 }
 
-/*function sanitizeSignupForm(){
+function validateSignupForm(){
 	
-}*/
+}

@@ -16,47 +16,60 @@
 	<section>
 		<?php 
 			include '../utility/db_functions.php';
+			//check if it is a post request to add a new user inside the database
 			if ($_SERVER['REQUEST_METHOD']=='POST'){
+				
 				try {
+					//sanitize, validate and collect user input
+					$user_name = validate_name(sanitize_user_input($_POST['user_name']));
+					$user_lastname = validate_name(sanitize_user_input($_POST['user_lastname']));
+					$user_email = validate_email(sanitize_user_input($_POST['user_email']));
+					$user_password = validate_password(sanitize_user_input($_POST['user_password']));
+					$user_confirm_password = validate_password(sanitize_user_input($_POST['user_confirm_password'])); 
+					
+					//check if password and confirm password are equal
+					if(strcmp($user_password, $user_confirm_password) != 0){
+						throw new Exception("exception: password and confirmed password are different");
+					}
+					
+					//connect, add user to the users table and close connection
 					$conn_id = connect_to_project_db();
 					
-					$user_name = $_POST['user_name'];
-					$user_last_name = $_POST['user_last_name'];
-					$user_email = $_POST['user_email'];
-					$user_password = $_POST['user_password'];
-					
-					insert_new_user($conn_id, $user_name, $user_last_name, $user_email, $user_password);
+					insert_new_user($conn_id, $user_name, $user_lastname,
+							$user_email, $user_password);
 					
 					echo "User with username '".$user_email."' added succesfully!";
 					
 					disconnect_to_project_db($conn_id);
 				}
 				catch (Exception $e) {
-					die($e->getMessage());
+					echo '<span class="warning">'. $e->getMessage() . '</span>';
 				}
 			}
 		?>
-		<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>"> 
+		
+		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSignupForm()"> 
+			<span class="warining">All fields are required</span>
 			<table>
 				<tr>
 					<td>Name:</td>
-					<td><input type="text" name="user_name" class="user_input"></td>
+					<td><input type="text" name="user_name" class="user_input" required="required"></td>
 				</tr>
 				<tr>
 					<td>Last Name:</td>
-					<td><input type="text" name="user_last_name" class="user_input"></td>
+					<td><input type="text" name="user_lastname" class="user_input" required="required"></td>
 				</tr>
 				<tr>
 					<td>Email:</td>
-					<td><input type="email" name="user_email" class="user_input"></td>
+					<td><input type="email" name="user_email" class="user_input" required="required"></td>
 				</tr>
 				<tr>
 					<td>Password:</td>
-					<td><input type="password" name="user_password" class="user_input"></td>
+					<td><input type="password" name="user_password" class="user_input" required="required"></td>
 				</tr>
 				<tr>
 					<td>Confirm Password:</td>
-					<td><input type="password" name="user_confirm_password" class="user_input"></td>
+					<td><input type="password" name="user_confirm_password" class="user_input" required="required"></td>
 				</tr>
 			</table>
 			<input type="submit" value="Submit">

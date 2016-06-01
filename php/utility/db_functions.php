@@ -1,4 +1,5 @@
 <?php
+include "utilities.php";
 function connect_to_project_db(){
 	$servername = "localhost";
 	$user = "xampp_server";
@@ -25,11 +26,16 @@ function disconnect_to_project_db($conn_id) {
 	}
 }
 
-function insert_new_user($conn_id, $user_name, $user_last_name, $user_email, $user_password) {
+function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $user_password) {
 	
-	$sql_query = "INSERT INTO users (username, password, name, last_name)
-			VALUES ('".$user_email."','".md5($user_password)."','"
-					.$user_name."','".$user_last_name."')";
+	$user_name = sanitize_user_input($user_name, $conn_id);
+	$user_lastname = sanitize_user_input($user_lastname, $conn_id);
+	$user_email = sanitize_user_input($user_email, $conn_id);
+	$user_password = sanitize_user_input($user_password, $conn_id);
+	
+	$sql_query = "INSERT INTO users (user_id, email, password, name, lastname)
+			VALUES ('','".$user_email."','".md5($user_password)."','"
+					.$user_name."','".$user_lastname."')";
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	

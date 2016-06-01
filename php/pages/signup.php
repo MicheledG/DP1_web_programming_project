@@ -16,6 +16,7 @@
 	<section>
 		<?php 
 			include '../utility/db_functions.php';
+			$insert_operation_result = "";
 			//check if it is a post request to add a new user inside the database
 			if ($_SERVER['REQUEST_METHOD']=='POST'){
 				
@@ -38,12 +39,13 @@
 					insert_new_user($conn_id, $user_name, $user_lastname,
 							$user_email, $user_password);
 					
-					echo "User with username '".$user_email."' added succesfully!";
+					$insert_operation_result = '<span class="success">'."user with username '"
+							.$user_email."' added succesfully!".'</span>';
 					
 					disconnect_to_project_db($conn_id);
 				}
 				catch (Exception $e) {
-					echo '<span class="warning">'. $e->getMessage() . '</span>';
+					$insert_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';
 				}
 			}
 		?>
@@ -75,6 +77,7 @@
 			<input type="submit" value="Submit">
 			<input type="button" value="Clear" onclick="clearSignupForm()">
 		</form>
+		<?php echo $insert_operation_result?>
 	</section>
 	<footer>
 		<?php include '../utility/footer.php';?>

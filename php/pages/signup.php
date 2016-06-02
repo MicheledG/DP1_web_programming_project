@@ -17,6 +17,11 @@
 		<?php 
 			include '../utility/db_functions.php';
 			$insert_operation_result = "";
+			$user_name = "";
+			$user_lastname = "";
+			$user_email = "";
+			$user_password = "";
+			
 			//check if it is a post request to add a new user inside the database
 			if ($_SERVER['REQUEST_METHOD']=='POST'){
 				
@@ -55,22 +60,26 @@
 			<table>
 				<tr>
 					<td>Name:</td>
-					<td><input type="text" name="user_name" class="user_input" required="required"></td>
+					<td><input type="text" name="user_name" class="user_input" required="required"
+						value="<?php echo $user_name;?>"></td>
 					<td><span class="warning"></span></td>
 				</tr>
 				<tr>
 					<td>Last Name:</td>
-					<td><input type="text" name="user_lastname" class="user_input" required="required"></td>
+					<td><input type="text" name="user_lastname" class="user_input" required="required"
+						value="<?php echo $user_lastname;?>"></td>
 					<td><span class="warning"></span></td>
 				</tr>
 				<tr>
 					<td>Email:</td>
-					<td><input type="email" name="user_email" class="user_input" required="required"></td>
+					<td><input type="email" name="user_email" class="user_input" required="required"
+						value="<?php echo $user_email;?>"></td>
 					<td><span class="warning"></span></td>
 				</tr>
 				<tr>
 					<td>Password:</td>
-					<td><input type="password" name="user_password" class="user_input" required="required"></td>
+					<td><input type="password" name="user_password" class="user_input" required="required"
+						value="<?php echo $user_password;?>"></td>
 					<td><span class="warning"></span></td>
 				</tr>
 				<tr>

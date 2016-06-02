@@ -77,19 +77,23 @@ function validatePassword(signupFormElements, formElementIndex, warningElements)
 
 function comparePasswordConfirmPassword(signupFormElements, passwordElementIndex
 		, confirmpasswordElementIndex, warningElements) {
-	var equal = signupFormElements.item(passwordElementIndex).value.localeCompare(signupFormElements.item(confirmpasswordElementIndex).value);
 	
-	if(equal != 0){
-		//the two typed passwords are not equal
-		if(validatePassword(signupFormElements, passwordElementIndex, warningElements)) {
-			//valid password
+	if(warningElements[passwordElementIndex].innerHTML === "") {
+		//valid password
+		var equal = signupFormElements.item(passwordElementIndex).value.localeCompare(signupFormElements.item(confirmpasswordElementIndex).value);
+		if(equal != 0){
+			//the two typed passwords are not equal
 			warningElements.item(confirmpasswordElementIndex).innerHTML = "not matching";
+			return false;
+		} 
+		else {
+			warningElements.item(confirmpasswordElementIndex).innerHTML = "";
+			return true;
 		}
 		
-		return false;
 	}
 	else {
 		warningElements.item(confirmpasswordElementIndex).innerHTML = "";
-		return true;
+		return false;
 	}
 }

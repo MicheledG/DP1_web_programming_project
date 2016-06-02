@@ -1,5 +1,5 @@
 <?php
-	include "db_functions.php";
+	include_once "db_functions.php";
 	
 	try{
 		//retrieve reservations for the actual user_id (session needs to be implemented)
@@ -11,7 +11,7 @@
 			//put in the table the reservations
 			while($reservation = mysqli_fetch_assoc($user_reservations)) {
 				echo '<tr>';
-				echo '<td><input type="checkbox" name="selected_reservation" 
+				echo '<td><input type="checkbox" name="selected_reservation[]" 
 						value="'.$reservation['res_id'].'">';
 				echo '</td>';
 				echo '<td>';

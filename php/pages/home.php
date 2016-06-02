@@ -9,7 +9,7 @@
 		<h2>Home</h2>
 	</header>
 	<nav>
-		<?php include '../utility/nav.php'?>
+		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
 		<table>
@@ -22,12 +22,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php include "../utility/reservations_table.php"?>
+				<?php include_once "../utility/reservations_table.php"?>
 			</tbody>
 		</table>
 	</section>
 	<footer>
-		<?php include '../utility/footer.php'?>
+		<?php include_once '../utility/footer.php'?>
 	</footer>
 </body>
 </html>

@@ -11,11 +11,11 @@
 		<h2>Sign Up</h2>
 	</header>
 	<nav>
-		<?php include '../utility/nav.php'?>
+		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
 		<?php 
-			include '../utility/db_functions.php';
+			include_once '../utility/db_functions.php';
 			$insert_operation_result = "";
 			$user_name = "";
 			$user_lastname = "";
@@ -94,7 +94,7 @@
 		<?php echo $insert_operation_result?>
 	</section>
 	<footer>
-		<?php include '../utility/footer.php';?>
+		<?php include_once '../utility/footer.php';?>
 	</footer>
 </body>
 </html>

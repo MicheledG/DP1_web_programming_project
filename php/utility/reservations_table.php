@@ -1,5 +1,5 @@
 <?php
-include "db_functions.php";
+include_once "db_functions.php";
 
 try{
 	//retrieve reservations for the all the users

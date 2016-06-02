@@ -1,5 +1,5 @@
 <?php
-include "utilities.php";
+include_once "utilities.php";
 function connect_to_project_db(){
 	$servername = "localhost";
 	$user = "xampp_server";
@@ -53,6 +53,8 @@ function retrieve_reservations($conn_id, $user_id = null){
 	if($user_id != null) {
 		$sql_query .= "\rWHERE user_id =".$user_id;
 	}
+	
+	$sql_query .= "\rORDER BY start_time_h ASC, start_time_m ASC";
 			
 	$res = mysqli_query($conn_id, $sql_query);
 	
@@ -67,5 +69,18 @@ function retrieve_reservations($conn_id, $user_id = null){
 		default:
 			throw new Exception("exception: unexpected query result");
 	}	
+}
+
+function delete_reservation($conn_id, $res_id){
+	
+	$sql_query = "DELETE FROM RESERVATIONS
+			WHERE res_id = ".$res_id;
+	
+	$res = mysqli_query($conn_id, $sql_query);
+	
+	if (!$res) {
+		throw new Exception("exception: ".mysqli_error($conn_id));
+	}
+	
 }
 ?>

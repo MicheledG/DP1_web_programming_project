@@ -19,9 +19,11 @@
 					<td>Starting Times</td>
 					<td>Duration Times</td>
 					<td>Selected Machines</td>
-					<td>Users</td>
 				</tr>
 			</thead>
+			<tbody>
+				<?php include "../utility/reservations_table.php"?>
+			</tbody>
 		</table>
 	</section>
 	<footer>

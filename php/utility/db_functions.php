@@ -43,4 +43,29 @@ function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $use
 		throw new Exception("exception: ".mysqli_error($conn_id));
 	}
 }
+
+function retrieve_reservations($conn_id, $user_id = null){
+		
+	$sql_query = "SELECT res_id, start_time_h, start_time_m, duration_time, machine_number
+			FROM RESERVATIONS";
+	
+	//if a user_id is specified retrieve reservations only for that specified user
+	if($user_id != null) {
+		$sql_query .= "\rWHERE user_id =".$user_id;
+	}
+			
+	$res = mysqli_query($conn_id, $sql_query);
+	
+	$res_type = gettype($res);
+	
+	switch ($res_type) {
+		case "boolean": //only false is the possible value
+			throw new Exception("exception: ".mysqli_error($conn_id));
+		case "object": //it a mysqli_object with the resulting rows
+			return $res;
+			break;
+		default:
+			throw new Exception("exception: unexpected query result");
+	}	
+}
 ?>

@@ -14,15 +14,18 @@
 	<section>
 		<form>
 			<table>
-				<thead>
-					<tr>
-						<td>Selected</td>
-						<td>Reservation IDs</td>
-						<td>Starting Times</td>
-						<td>Duration Times</td>
-						<td>Selected Machines</td>
-					</tr>
-				</thead>
+			<thead>
+				<tr>
+					<td>Selected</td>
+					<td>Reservation IDs</td>
+					<td>Starting Times</td>
+					<td>Duration Times</td>
+					<td>Machine Numbers</td>
+				</tr>
+			</thead>
+			<tbody>
+				<?php include "../utility/my_reservations_table.php"?>
+			</tbody>
 			</table>
 			<a href="reservation_system.php"><input type="button" value="Add" ></a>
 			<input type="submit" value="Remove">

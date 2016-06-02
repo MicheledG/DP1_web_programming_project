@@ -56,22 +56,27 @@
 				<tr>
 					<td>Name:</td>
 					<td><input type="text" name="user_name" class="user_input" required="required"></td>
+					<td><span class="warning"></span></td>
 				</tr>
 				<tr>
 					<td>Last Name:</td>
 					<td><input type="text" name="user_lastname" class="user_input" required="required"></td>
+					<td><span class="warning"></span></td>
 				</tr>
 				<tr>
 					<td>Email:</td>
 					<td><input type="email" name="user_email" class="user_input" required="required"></td>
+					<td><span class="warning"></span></td>
 				</tr>
 				<tr>
 					<td>Password:</td>
 					<td><input type="password" name="user_password" class="user_input" required="required"></td>
+					<td><span class="warning"></span></td>
 				</tr>
 				<tr>
 					<td>Confirm Password:</td>
 					<td><input type="password" name="user_confirm_password" class="user_input" required="required"></td>
+					<td><span class="warning"></span></td>
 				</tr>
 			</table>
 			<input type="submit" value="Submit">

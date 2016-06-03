@@ -2,8 +2,11 @@
 <html>
 <head>
 	<title>Reservatation System</title>
+	<script type="text/javascript" src="../../js/my_reservations_js_functions.js"></script>
 	<?php 
 		include_once '../utility/db_functions.php';
+		//prepare the remove operation result message
+		$remove_operation_result = "";
 		//check if it is a post request to add a new user inside the database
 		if ($_SERVER['REQUEST_METHOD']=='POST'){
 		
@@ -38,7 +41,8 @@
 	<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
-		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>">
+		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" 
+		onsubmit="return validateRemoveReservationsForm()">
 			<table>
 			<thead>
 				<tr>
@@ -53,7 +57,7 @@
 				<?php include_once "../utility/my_reservations_table.php"?>
 			</tbody>
 			</table>
-			<a href="reservation_system.php"><input type="button" value="Add" ></a>
+			<a href="add_reservation.php"><input type="button" value="Add" ></a>
 			<input type="submit" value="Remove">
 			<?php echo $remove_operation_result;?>
 		</form>

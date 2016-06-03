@@ -33,7 +33,7 @@ function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $use
 	$user_email = sanitize_user_input($user_email, $conn_id);
 	$user_password = sanitize_user_input($user_password, $conn_id);
 	
-	$sql_query = "INSERT INTO users (user_id, email, password, name, lastname)
+	$sql_query = "INSERT INTO USERS (user_id, email, password, name, lastname)
 			VALUES ('','".$user_email."','".md5($user_password)."','"
 					.$user_name."','".$user_lastname."')";
 	
@@ -83,4 +83,29 @@ function delete_reservation($conn_id, $res_id){
 	}
 	
 }
+
+/*function check_machine_availability($conn_id, $start_time_h, $start_time_m, $duration_time) {
+	
+	$sql_query = "SELECT COUNT(machine_number)
+			FROM RESERVATIONS
+			WHERE "
+	
+}*/
+
+function insert_new_reservation($conn_id, $user_id, $start_time_h, $start_time_m, $duration_time, $machine_number) {
+	
+	
+	$sql_query = "INSERT INTO RESERVATIONS(res_id, user_id, start_time_h, start_time_m
+			, duration_time, machine_number)
+			VALUES('','".$user_id."','".$start_time_h."','".$start_time_m.
+			"','".$duration_time."','".$machine_number."')";
+	
+	$res = mysqli_query($conn_id, $sql_query);
+	
+	if (!$res) {
+		throw new Exception("exception: ".mysqli_error($conn_id));
+	}
+}
+
+
 ?>

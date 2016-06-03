@@ -18,30 +18,37 @@
 			include_once '../utility/db_functions.php';
 			$insert_operation_result = "";
 			
-			//check if it is a post request to add a new user inside the database
+			//check if it is a post request to add a new reservation inside the database
 			if ($_SERVER['REQUEST_METHOD']=='POST'){
 				
 				try {
-					//sanitize, validate and collect user input
-					$user_name = validate_name(sanitize_user_input($_POST['user_name']));
-					$user_lastname = validate_name(sanitize_user_input($_POST['user_lastname']));
-					$user_email = validate_email(sanitize_user_input($_POST['user_email']));
-					$user_password = validate_password(sanitize_user_input($_POST['user_password']));
-					$user_confirm_password = validate_password(sanitize_user_input($_POST['user_confirm_password'])); 
+					//collect reservation parameters
+					$start_time_h = $_POST['start_time_h'];
+					$start_time_m = $_POST['start_time_m'];
+					$duration_time = $_POST['duration_time'];
 					
-					//check if password and confirm password are equal
-					if(strcmp($user_password, $user_confirm_password) != 0){
-						throw new Exception("exception: password and confirmed password are different");
+					//validate reservation parameters
+					if(($start_time_h < 0 || $start_time_h > 23) ||
+							($start_time_m < 0 || $start_time_h > 59) ||
+							($duration_time < 1 || $start_time_h > 120)) {
+						throw new Exception("exception: reservation parameters out of range");			
 					}
 					
-					//connect, add user to the users table and close connection
+					//connect to the db
 					$conn_id = connect_to_project_db();
 					
-					insert_new_user($conn_id, $user_name, $user_lastname,
-							$user_email, $user_password);
+					//check availbality of machine for the requested reservation
+					/*$availabilty = check_machine_availability($conn_id, $start_time_h,
+							$start_time_m, $duration_time);*/
 					
-					$insert_operation_result = '<span class="success">'."user with username '"
-							.$user_email."' added succesfully!".'</span>';
+					//if availbaility true add the reservation
+					insert_new_reservation($conn_id, 1 /*USER ID!!!*/, $start_time_h,
+							$start_time_m, $duration_time, 1/*MACHINE NUMBER!!!*/);
+						
+					$insert_operation_result = '<span class="success">'."New reservation added
+							succesfully!".'</span>';
+					
+					//close the connection
 					
 					disconnect_to_project_db($conn_id);
 				}
@@ -51,7 +58,7 @@
 			}
 		?>
 		
-		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateAddReservationForm()"> 
+		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>"> 
 			<span class="warning">All fields are required</span>
 			<table id="add_reservation_table">
 			</table>

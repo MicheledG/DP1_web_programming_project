@@ -142,21 +142,25 @@ function search_user($conn_id, $user_email, $user_password){
 	$user_password = md5($user_password);
 	
 	//select the user with the specified credentials
-	$sql_query = 'SELECT user_id, name
+	$sql_query = "SELECT user_id, name
 			FROM USERS
-			WHERE email = '.$user_email.' AND password = '.$user_password;
+			WHERE email = '".$user_email."' AND password = '".$user_password."'";
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	
 	$res_type = gettype($res);
 	
 	switch ($res_type) {
-		case "boolean": //only false is the possible value
-			throw new Exception("exception: wrong email or password");
-		case "object": //it a mysqli_object with the resulting row (only one!)
-			$found_user = mysqli_fetch_assoc($res);
-			return $found_user;
+		case "object": //it a mysqli_object 
+			// check if there is one row
+			if(mysqli_num_rows($res) == 1){
+				$found_user = mysqli_fetch_assoc($res);
+				return $found_user;
+			} else {
+				throw new Exception("exception: wrong email or password");
+			}
 			break;
+		case "boolean": //only false is the possible value
 		default:
 			throw new Exception("exception: unexpected query result");
 	}

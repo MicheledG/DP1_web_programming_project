@@ -36,7 +36,7 @@
 					//returns user_id and name in an associative array
 					$found_user = search_user($conn_id, $user_email, $user_password);
 					
-					$signin_operation_result = '<span class="success">'.'Welcome back"'
+					$signin_operation_result = '<span class="success">'.'Welcome back "'
 						.$found_user['name'].'"!</span>';
 					
 					disconnect_to_project_db($conn_id);

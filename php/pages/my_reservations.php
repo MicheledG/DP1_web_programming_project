@@ -51,7 +51,7 @@
 					<td>Reservation IDs</td>
 					<td>Starting Times</td>
 					<td>Duration Times</td>
-					<td>Machine Numbers</td>
+					<td>Selected Machines</td>
 				</tr>
 			</thead>
 			<tbody>

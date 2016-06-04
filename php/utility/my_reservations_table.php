@@ -27,7 +27,7 @@
 				echo $reservation['duration_time'];
 				echo '</td>';
 				echo '<td>';
-				echo $reservation['machine_number'];
+				echo $reservation['selected_machine'];
 				echo '</td>';
 				echo '</tr>';
 			}

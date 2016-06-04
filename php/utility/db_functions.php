@@ -41,7 +41,7 @@ function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $use
 
 function retrieve_reservations($conn_id, $user_id = null){
 		
-	$sql_query = "SELECT res_id, start_time, duration_time, machine_number
+	$sql_query = "SELECT res_id, start_time, duration_time, selected_machine
 			FROM RESERVATIONS";
 	
 	//if a user_id is specified retrieve reservations only for that specified user
@@ -87,11 +87,11 @@ function check_machine_availability($conn_id, $start_time_h, $start_time_m, $dur
 	$start_time = $start_time_h * HOUR_MIN + $start_time_m;
 	
 	//select all the existing reservation with overlapping time periods
-	$sql_query = "SELECT machine_number
+	$sql_query = "SELECT selected_machine
 			FROM RESERVATIONS
 			WHERE ".$start_time." <= start_time AND ".($start_time + $duration_time)." >= start_time OR 
 					".$start_time.">= start_time AND ".$start_time." <= start_time + duration_time
-			GROUP BY machine_number";
+			GROUP BY selected_machine";
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	
@@ -99,7 +99,7 @@ function check_machine_availability($conn_id, $start_time_h, $start_time_m, $dur
 	if(mysqli_num_rows($res) > 0){
 		//there are overlapping reservations
 		while($selected_machine = mysqli_fetch_assoc($res)){
-			if ($selected_machine['machine_number'] == $available_machine) {
+			if ($selected_machine['selected_machine'] == $available_machine) {
 				//that machine is not available
 				$available_machine++;
 			} 
@@ -122,13 +122,13 @@ function check_machine_availability($conn_id, $start_time_h, $start_time_m, $dur
 	return $available_machine;
 }
 
-function insert_new_reservation($conn_id, $user_id, $start_time_h, $start_time_m, $duration_time, $machine_number) {
+function insert_new_reservation($conn_id, $user_id, $start_time_h, $start_time_m, $duration_time, $selected_machine) {
 	
 	//on the db the start_time is represented in minute
 	$start_time = $start_time_h * HOUR_MIN + $start_time_m;
 	
-	$sql_query = "INSERT INTO RESERVATIONS(res_id, user_id, start_time, duration_time, machine_number)
-			VALUES('','".$user_id."','".$start_time."','".$duration_time."','".$machine_number."')";
+	$sql_query = "INSERT INTO RESERVATIONS(res_id, user_id, start_time, duration_time, selected_machine)
+			VALUES('','".$user_id."','".$start_time."','".$duration_time."','".$selected_machine."')";
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	

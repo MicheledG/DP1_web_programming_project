@@ -1,15 +1,42 @@
 <?php include_once '../utility/project_defined_values.php';?>
 <?php 
-	//manage sign up operation
-	include_once '../utility/db_functions.php';
-	$insert_operation_result = "";
+	//open the session relative to the received session cookie of the user
+	//or create and send to the user the session cookie
+	session_start(); 
+ 	$user_signedin = false;
+ 	$insert_operation_result = "";
 	$user_name = "";
 	$user_lastname = "";
 	$user_email = "";
 	$user_password = "";
 	
+	//check if there is already an opened session
+	if(isset($_SESSION['user_id']) && isset($_SESSION['timeout'])){
+		//availble session for the specific user on the server
+		$elapsed_time = time() - $_SESSION['timeout'];
+		if($elapsed_time < MAX_SESSION_TIME){
+			//still valid session
+			$insert_operation_result = '<span class="warning">'.'User "'
+						.$_SESSION['user_email'].'" already signed in!</span>';
+			//set the new timeout session time
+			$_SESSION['timeout'] = time();
+			$user_signedin = true;
+		} 
+		else {
+			//session expired
+			//reset all the session variables
+			session_unset();
+			//NOT DESTROY THE SESSION!
+		}
+	}
+	
+?>
+<?php 
+	//manage sign up operation
+	include_once '../utility/db_functions.php';
+	
 	//check if it is a post request to add a new user inside the database
-	if ($_SERVER['REQUEST_METHOD']=='POST'){
+	if ($_SERVER['REQUEST_METHOD']=='POST' && !$user_signedin){
 		
 		try {
 			//sanitize, validate and collect user input
@@ -27,11 +54,17 @@
 			//connect, add user to the users table and close connection
 			$conn_id = connect_to_project_db();
 			
-			insert_new_user($conn_id, $user_name, $user_lastname,
+			$inserted_user = insert_new_user($conn_id, $user_name, $user_lastname,
 					$user_email, $user_password);
 			
 			$insert_operation_result = '<span class="success">'."user with username '"
 					.$user_email."' added succesfully!".'</span>';
+			
+			//with a succesful sign in set the session parameters
+			$_SESSION['user_id'] = $inserted_user['user_id'];
+			$_SESSION['user_email'] = $inserted_user['email'];
+			$_SESSION['user_name'] = $inserted_user['name'];
+			$_SESSION['timeout'] = time();
 			
 			disconnect_to_project_db($conn_id);
 		}

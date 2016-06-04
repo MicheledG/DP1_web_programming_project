@@ -23,20 +23,46 @@ function disconnect_to_project_db($conn_id) {
 
 function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $user_password) {
 	
+	//prepare the value to store inside the USERS TABLE
 	$user_name = sanitize_user_input($user_name, $conn_id);
 	$user_lastname = sanitize_user_input($user_lastname, $conn_id);
 	$user_email = sanitize_user_input($user_email, $conn_id);
-	$user_password = sanitize_user_input($user_password, $conn_id);
+	$user_password = md5(sanitize_user_input($user_password, $conn_id));
 	
 	$sql_query = "INSERT INTO USERS (user_id, email, password, name, lastname)
-			VALUES ('','".$user_email."','".md5($user_password)."','"
+			VALUES ('','".$user_email."','".$user_password."','"
 					.$user_name."','".$user_lastname."')";
 	
+	//insert the new user
 	$res = mysqli_query($conn_id, $sql_query);
 	
+	//chek if insertion went ok
 	if (!$res) {
 		throw new Exception("exception: ".mysqli_error($conn_id));
 	}
+	
+	//if everything ok return the stored user values
+	$sql_query = "SELECT * FROM USERS WHERE email = '".$user_email."'";
+	
+	$res = mysqli_query($conn_id, $sql_query);
+	
+	$res_type = gettype($res);
+	
+	switch ($res_type) {
+		case "object": //it a mysqli_object
+			// check if there is one row
+			if(mysqli_num_rows($res) == 1){
+				$inserted_user = mysqli_fetch_assoc($res);
+				return $inserted_user;
+			} else {
+				throw new Exception("exception: unexpected query result");
+			}
+			break;
+		case "boolean": //only false is the possible value
+		default:
+			throw new Exception("exception: unexpected query result");
+	}
+	
 }
 
 function retrieve_reservations($conn_id, $user_id = null){

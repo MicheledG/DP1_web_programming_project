@@ -14,15 +14,16 @@
 		} 
 		else {
 			//session expired
-			//NEED TO FORCE THE USER TO GO SOMEWHERE!
 			//reset all the session variables
 			session_unset();
+			die("ACCESS DENIED");
 			//NOT DESTROY THE SESSION!
 		}
 	}
 	
 ?>
 <?php 
+	//manage reservation isertion
 	include_once '../utility/db_functions.php';
 	$insert_operation_result = "";
 	

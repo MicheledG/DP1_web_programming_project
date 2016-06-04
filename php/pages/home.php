@@ -1,8 +1,30 @@
+<?php include_once '../utility/project_defined_values.php';?>
+<?php 
+	//open the session relative to the received session cookie of the user
+	//or create and send to the user the session cookie
+	session_start(); 
+	
+	//check if there is already an opened session
+	if(isset($_SESSION['user_id']) && isset($_SESSION['timeout'])){
+		//availble session for the specific user on the server
+		$elapsed_time = time() - $_SESSION['timeout'];
+		if($elapsed_time < MAX_SESSION_TIME){
+			//set the new timeout session time
+			$_SESSION['timeout'] = time();
+		} 
+		else {
+			//session expired
+			//reset all the session variables
+			session_unset();
+			//NOT DESTROY THE SESSION!
+		}
+	}
+	
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Reservation System</title>
-	<?php include_once '../utility/project_defined_values.php';?>
 </head>
 <body>
 	<header>

@@ -142,7 +142,7 @@ function search_user($conn_id, $user_email, $user_password){
 	$user_password = md5($user_password);
 	
 	//select the user with the specified credentials
-	$sql_query = "SELECT user_id, name
+	$sql_query = "SELECT *
 			FROM USERS
 			WHERE email = '".$user_email."' AND password = '".$user_password."'";
 	

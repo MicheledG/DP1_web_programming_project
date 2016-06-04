@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Reservatation System</title>
+	<title>Reservation System</title>
 	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="../../js/validate_input_js_functions.js"></script>
 	<script type="text/javascript" src="../../js/signup_js_functions.js"></script>
 	<?php include_once '../utility/project_defined_values.php';?>
 </head>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Add Reservation</title>
+	<title>Reservation System</title>
 	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="../../js/add_reservation_js_functions.js"></script>
 	<?php include_once '../utility/project_defined_values.php';?>

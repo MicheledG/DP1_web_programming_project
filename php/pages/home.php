@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Reservatation System</title>
+	<title>Reservation System</title>
 	<?php include_once '../utility/project_defined_values.php';?>
 </head>
 <body>

@@ -86,36 +86,43 @@ function delete_reservation($conn_id, $res_id){
 
 function check_machine_availability($conn_id, $start_time_h, $start_time_m, $duration_time) {
 	
-	$available_machine = null;
+	$available_machine = 1;
 	
 	//on the db the start_time is represented in minute
 	$start_time = $start_time_h * 60 + $start_time_m;
 	
 	//select all the existing reservation with overlapping time periods
-	$sql_query = "SELECT MAX(machine_number)
+	$sql_query = "SELECT machine_number
 			FROM RESERVATIONS
 			WHERE ".$start_time." <= start_time AND ".($start_time + $duration_time)." >= start_time OR 
-					".$start_time.">= start_time AND ".$start_time." <= start_time + duration_time";
+					".$start_time.">= start_time AND ".$start_time." <= start_time + duration_time
+			GROUP BY machine_number";
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	
 	//check the query result
-	$last_selected_machine = mysqli_fetch_assoc($res);
-	if (is_null($last_selected_machine['MAX(machine_number)'])){
+	if(mysqli_num_rows($res) > 0){
+		//there are overlapping reservations
+		while($selected_machine = mysqli_fetch_assoc($res)){
+			if ($selected_machine['machine_number'] == $available_machine) {
+				//that machine is not available
+				$available_machine++;
+			} 
+			else {
+				//that machine is available
+				break;
+			}
+		}
+		
+		if($available_machine > 4) {
+			throw new Exception("exception: no available machine to add the reservation");
+		}
+	}
+	else {
 		//no overlapping reservations
 		//first machine is availble
 		$available_machine = 1;
-	} else {
-		//there are overlapping reservations
-		if($last_selected_machine['MAX(machine_number)'] < 4 ){
-			//there are still available machines
-			$available_machine = $last_selected_machine['MAX(machine_number)'] + 1;
-		} 
-		else {
-			//there are no available machines
-			throw new Exception("exception: no more machines available");
-		}
-	}					
+	}
 	
 	return $available_machine;
 }

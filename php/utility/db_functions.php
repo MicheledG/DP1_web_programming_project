@@ -46,7 +46,7 @@ function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $use
 
 function retrieve_reservations($conn_id, $user_id = null){
 		
-	$sql_query = "SELECT res_id, start_time_h, start_time_m, duration_time, machine_number
+	$sql_query = "SELECT res_id, start_time, duration_time, machine_number
 			FROM RESERVATIONS";
 	
 	//if a user_id is specified retrieve reservations only for that specified user
@@ -54,7 +54,7 @@ function retrieve_reservations($conn_id, $user_id = null){
 		$sql_query .= "\rWHERE user_id =".$user_id;
 	}
 	
-	$sql_query .= "\rORDER BY start_time_h ASC, start_time_m ASC";
+	$sql_query .= "\rORDER BY start_time ASC";
 			
 	$res = mysqli_query($conn_id, $sql_query);
 	
@@ -84,21 +84,49 @@ function delete_reservation($conn_id, $res_id){
 	
 }
 
-/*function check_machine_availability($conn_id, $start_time_h, $start_time_m, $duration_time) {
+function check_machine_availability($conn_id, $start_time_h, $start_time_m, $duration_time) {
 	
-	$sql_query = "SELECT COUNT(machine_number)
+	$available_machine = null;
+	
+	//on the db the start_time is represented in minute
+	$start_time = $start_time_h * 60 + $start_time_m;
+	
+	//select all the existing reservation with overlapping time periods
+	$sql_query = "SELECT MAX(machine_number)
 			FROM RESERVATIONS
-			WHERE "
+			WHERE ".$start_time." <= start_time AND ".($start_time + $duration_time)." >= start_time OR 
+					".$start_time.">= start_time AND ".$start_time." <= start_time + duration_time";
 	
-}*/
+	$res = mysqli_query($conn_id, $sql_query);
+	
+	//check the query result
+	$last_selected_machine = mysqli_fetch_assoc($res);
+	if (is_null($last_selected_machine['MAX(machine_number)'])){
+		//no overlapping reservations
+		//first machine is availble
+		$available_machine = 1;
+	} else {
+		//there are overlapping reservations
+		if($last_selected_machine['MAX(machine_number)'] < 4 ){
+			//there are still available machines
+			$available_machine = $last_selected_machine['MAX(machine_number)'] + 1;
+		} 
+		else {
+			//there are no available machines
+			throw new Exception("exception: no more machines available");
+		}
+	}					
+	
+	return $available_machine;
+}
 
 function insert_new_reservation($conn_id, $user_id, $start_time_h, $start_time_m, $duration_time, $machine_number) {
 	
+	//on the db the start_time is represented in minute
+	$start_time = $start_time_h * 60 + $start_time_m;
 	
-	$sql_query = "INSERT INTO RESERVATIONS(res_id, user_id, start_time_h, start_time_m
-			, duration_time, machine_number)
-			VALUES('','".$user_id."','".$start_time_h."','".$start_time_m.
-			"','".$duration_time."','".$machine_number."')";
+	$sql_query = "INSERT INTO RESERVATIONS(res_id, user_id, start_time, duration_time, machine_number)
+			VALUES('','".$user_id."','".$start_time."','".$duration_time."','".$machine_number."')";
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	

@@ -14,8 +14,11 @@ try{
 			echo '<td>';
 			echo $reservation['res_id'];
 			echo '</td>';
+			//compute start_time_h and start_time_m
+			$start_time_h = floor($reservation['start_time'] / 60);
+			$start_time_m = $reservation['start_time'] % 60;
 			echo '<td>';
-			printf("%02d:%02d", $reservation['start_time_h'], $reservation['start_time_m']);
+			printf("%02d:%02d", $start_time_h, $start_time_m);
 			echo '</td>';
 			echo '<td>';
 			echo $reservation['duration_time'];

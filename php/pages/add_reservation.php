@@ -38,12 +38,12 @@
 					$conn_id = connect_to_project_db();
 					
 					//check availbality of machine for the requested reservation
-					/*$availabilty = check_machine_availability($conn_id, $start_time_h,
-							$start_time_m, $duration_time);*/
+					$available_machine = check_machine_availability($conn_id, $start_time_h,
+							$start_time_m, $duration_time);
 					
-					//if availbaility true add the reservation
+					//if no exception (no availability) insert the new reservation
 					insert_new_reservation($conn_id, 1 /*USER ID!!!*/, $start_time_h,
-							$start_time_m, $duration_time, 1/*MACHINE NUMBER!!!*/);
+							$start_time_m, $duration_time, $available_machine);
 						
 					$insert_operation_result = '<span class="success">'."New reservation added
 							succesfully!".'</span>';

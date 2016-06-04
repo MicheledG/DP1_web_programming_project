@@ -4,6 +4,7 @@
 	<title>Add Reservation</title>
 	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="../../js/add_reservation_js_functions.js"></script>
+	<?php include_once '../utility/project_defined_values.php';?>
 </head>
 <body>
 	<header>
@@ -28,9 +29,9 @@
 					$duration_time = $_POST['duration_time'];
 					
 					//validate reservation parameters
-					if(($start_time_h < 0 || $start_time_h > 23) ||
-							($start_time_m < 0 || $start_time_h > 59) ||
-							($duration_time < 1 || $start_time_h > 120)) {
+					if(($start_time_h < MIN_HOUR || $start_time_h > MAX_HOUR) ||
+							($start_time_m < MIN_MIN || $start_time_h > MAX_MIN) ||
+							($duration_time < MIN_DURATION || $start_time_h > MAX_DURATION)) {
 						throw new Exception("exception: reservation parameters out of range");			
 					}
 					

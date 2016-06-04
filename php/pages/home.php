@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Reservatation System</title>
+	<?php include_once '../utility/project_defined_values.php';?>
 </head>
 <body>
 	<header>

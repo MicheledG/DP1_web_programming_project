@@ -1,13 +1,8 @@
 <?php
 include_once "utilities.php";
 function connect_to_project_db(){
-	$servername = "localhost";
-	$user = "xampp_server";
-	$password = "password";
-	$dbname = "web_project";
-	
 	//create connection
-	$conn_id = mysqli_connect($servername, $user, $password, $dbname);
+	$conn_id = mysqli_connect(SERVER_NAME, SERVER_USER, SERVER_PASSWORD, SERVER_DB_NAME);
 	
 	//check connection
 	if (!$conn_id) {
@@ -86,10 +81,10 @@ function delete_reservation($conn_id, $res_id){
 
 function check_machine_availability($conn_id, $start_time_h, $start_time_m, $duration_time) {
 	
-	$available_machine = 1;
+	$available_machine = FIRST_PRINTER;
 	
 	//on the db the start_time is represented in minute
-	$start_time = $start_time_h * 60 + $start_time_m;
+	$start_time = $start_time_h * HOUR_MIN + $start_time_m;
 	
 	//select all the existing reservation with overlapping time periods
 	$sql_query = "SELECT machine_number
@@ -114,14 +109,14 @@ function check_machine_availability($conn_id, $start_time_h, $start_time_m, $dur
 			}
 		}
 		
-		if($available_machine > 4) {
+		if($available_machine > AVAILABLE_PRINTERS) {
 			throw new Exception("exception: no available machine to add the reservation");
 		}
 	}
 	else {
 		//no overlapping reservations
 		//first machine is availble
-		$available_machine = 1;
+		$available_machine = FIRST_PRINTER;
 	}
 	
 	return $available_machine;
@@ -130,7 +125,7 @@ function check_machine_availability($conn_id, $start_time_h, $start_time_m, $dur
 function insert_new_reservation($conn_id, $user_id, $start_time_h, $start_time_m, $duration_time, $machine_number) {
 	
 	//on the db the start_time is represented in minute
-	$start_time = $start_time_h * 60 + $start_time_m;
+	$start_time = $start_time_h * HOUR_MIN + $start_time_m;
 	
 	$sql_query = "INSERT INTO RESERVATIONS(res_id, user_id, start_time, duration_time, machine_number)
 			VALUES('','".$user_id."','".$start_time."','".$duration_time."','".$machine_number."')";

@@ -3,6 +3,7 @@
 <head>
 	<title>Reservatation System</title>
 	<script type="text/javascript" src="../../js/my_reservations_js_functions.js"></script>
+	<?php include_once '../utility/project_defined_values.php';?>
 	<?php 
 		include_once '../utility/db_functions.php';
 		//prepare the remove operation result message

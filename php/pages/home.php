@@ -25,16 +25,18 @@
 <html>
 <head>
 	<title>Reservation System</title>
+	<link rel="stylesheet" href="../../css/common_style.css">
+	<link rel="stylesheet" href="../../css/home_style.css">
 </head>
 <body>
 	<header>
 		<h1>Reservation System</h1>
-		<h2>Home</h2>
 	</header>
 	<nav>
 		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
+		<h2>Home</h2>
 		<table>
 			<thead>
 				<tr>

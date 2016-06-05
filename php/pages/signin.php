@@ -74,16 +74,17 @@
 	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="../../js/validate_input_js_functions.js"></script>
 	<script type="text/javascript" src="../../js/signin_js_functions.js"></script>
+	<link rel="stylesheet" href="../../css/common_style.css">
 </head>
 <body>
 	<header>
 		<h1>Reservation System</h1>
-		<h2>Sign In</h2>
 	</header>
 	<nav>
 		<?php include_once '../utility/nav.php'?>
 	</nav>
-	<section>	
+	<section>
+		<h2>Sign In</h2>	
 		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSigninForm()"> 
 			<span class="warining">All fields are required</span>
 			<table>

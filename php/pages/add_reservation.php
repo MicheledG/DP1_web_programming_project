@@ -73,16 +73,17 @@
 	<title>Reservation System</title>
 	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="../../js/add_reservation_js_functions.js"></script>
+	<link rel="stylesheet" href="../../css/common_style.css">
 </head>
 <body>
 	<header>
 		<h1>Reservation System</h1>
-		<h2>Add Reservation</h2>
 	</header>
 	<nav>
 		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
+		<h2>Add Reservation</h2>
 		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>"> 
 			<span class="warning">All fields are required</span>
 			<table id="add_reservation_table">

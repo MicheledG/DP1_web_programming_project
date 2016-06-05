@@ -10,8 +10,8 @@
 	}
 	else {
 		$nav_content .= '<li><a href="home.php">Home</a></li>';
-		$nav_content .= '<li><a href="signup.php">Sign Up</a></li>';
 		$nav_content .= '<li><a href="signin.php">Sign In</a></li>';
+		$nav_content .= '<li><a href="signup.php">Sign Up</a></li>';
 	}
 	
 	$nav_content .= '</ul>';

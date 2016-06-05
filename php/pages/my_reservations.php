@@ -82,6 +82,7 @@
 				<?php include_once "../utility/my_reservations_table.php"?>
 			</tbody>
 			</table>
+			<?php echo $table_status;?>
 			<a href="add_reservation.php"><input type="button" value="Add" ></a>
 			<input type="submit" value="Remove">
 			<?php echo $remove_operation_result;?>

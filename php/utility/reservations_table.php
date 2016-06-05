@@ -9,6 +9,7 @@ try{
 
 	if(mysqli_num_rows($reservations) > 0){
 		//put in the table the reservations
+		$reservation_number = 0;
 		while($reservation = mysqli_fetch_assoc($reservations)) {
 			echo '<tr>';
 			echo '<td>';
@@ -26,16 +27,21 @@ try{
 			echo '<td>';
 			echo $reservation['selected_machine'];
 			echo '</td>';
+			echo '<td>';
+			echo $reservation['email'];
+			echo '</td>';
 			echo '</tr>';
+			$reservation_number++;
 		}
+		$table_status = '<span class="success">Nr. active reservations: '.$reservation_number.'</span>';
 	}
 	else {
-		//no reservations available for the actual user_id
-		echo '<tr><td> no reservations available </td></tr>';
+		//no reservations available
+		$table_status = '<span class="warning">No registered reservations</span>';
 	}
 }
 catch (Exception $e) {
-	echo '<tr><td> problem retrieving reservations:'.$e->getMessage().'</td></tr>';
+	echo $table_status = '<span class="warning">Error occured downloading reservations</span>';
 }
 
 ?>

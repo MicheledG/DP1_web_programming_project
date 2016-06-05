@@ -4,6 +4,7 @@
 		$nav_content = '<span id="active_user_email"> User: "'.$_SESSION['user_email'].'"</span>';
 		$nav_content .= '<a href="home.php">Home</a>';
 		$nav_content .= '<a href="my_reservations.php">My Reservations</a>';
+		$nav_content .= '<a href="signout.php">Sign Out</a>';
 	}
 	else {
 		$nav_content = '<a href="home.php">Home</a>';

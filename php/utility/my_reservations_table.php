@@ -5,10 +5,11 @@
 		//retrieve reservations for the actual user_id (session needs to be implemented)
 		$conn_id = connect_to_project_db();
 		
-		$user_reservations = retrieve_reservations($conn_id, 1);
+		$user_reservations = retrieve_reservations($conn_id, $_SESSION['user_id']);
 		
 		if(mysqli_num_rows($user_reservations) > 0){
 			//put in the table the reservations
+			$reservation_number = 0;
 			while($reservation = mysqli_fetch_assoc($user_reservations)) {
 				echo '<tr>';
 				echo '<td><input type="checkbox" name="selected_reservation[]" 
@@ -30,15 +31,17 @@
 				echo $reservation['selected_machine'];
 				echo '</td>';
 				echo '</tr>';
+				$reservation_number++;
 			}
+			$table_status = '<span class="success">Nr. active reservations: '.$reservation_number.'</span>';
 		}
 		else {
 			//no reservations available for the actual user_id
-			echo '<tr><td> no reservations available </td></tr>';
+			$table_status = '<span class="warning">No registered reservations</span>';
 		}
 	}
 	catch (Exception $e) {
-		echo '<tr><td> problem retrieving reservations:'.$e->getMessage().'</td></tr>';
+		$table_status = '<span class="warning">Error occured downloading reservations</span>';
 	} 
 	
 ?>

@@ -66,13 +66,18 @@ function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $use
 }
 
 function retrieve_reservations($conn_id, $user_id = null){
-		
-	$sql_query = "SELECT res_id, start_time, duration_time, selected_machine
-			FROM RESERVATIONS";
 	
 	//if a user_id is specified retrieve reservations only for that specified user
 	if($user_id != null) {
-		$sql_query .= "\rWHERE user_id =".$user_id;
+		$sql_query = "SELECT res_id, start_time, duration_time, selected_machine
+			FROM RESERVATIONS
+			WHERE user_id =".$user_id;
+	} 
+	else {
+		$sql_query = "SELECT res_id, start_time, duration_time, selected_machine, email
+			FROM RESERVATIONS
+			INNER JOIN USERS
+			ON RESERVATIONS.user_id=USERS.user_id";
 	}
 	
 	$sql_query .= "\rORDER BY start_time ASC";

@@ -42,12 +42,14 @@
 					<td>Starting Times</td>
 					<td>Duration Times</td>
 					<td>Selected Machines</td>
+					<td>Users</td>
 				</tr>
 			</thead>
 			<tbody>
 				<?php include_once "../utility/reservations_table.php"?>
 			</tbody>
 		</table>
+		<?php echo $table_status;?>
 	</section>
 	<footer>
 		<?php include_once '../utility/footer.php'?>

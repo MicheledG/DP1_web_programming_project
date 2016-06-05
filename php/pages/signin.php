@@ -57,6 +57,9 @@
 			$_SESSION['timeout'] = time();
 			
 			disconnect_to_project_db($conn_id);
+			
+			//redirect to the home page
+			header("location: home.php");
 		}
 		catch (Exception $e) {
 			$signin_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';

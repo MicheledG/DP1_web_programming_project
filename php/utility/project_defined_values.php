@@ -6,7 +6,7 @@ define("SERVER_USER", "xampp_server");
 define("SERVER_PASSWORD", "password");
 define("SERVER_DB_NAME", "web_project");
 
-define("MAX_SESSION_TIME", 120); //2 min
+define("MAX_SESSION_TIME", 20); //20 sec
 
 //CONSTRAINTS ON ADDING A RESERVATION
 define("AVAILABLE_PRINTERS", 4);

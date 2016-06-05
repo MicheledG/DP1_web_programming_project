@@ -60,6 +60,7 @@
 			
 			//redirect to the home page
 			header("location: home.php");
+			exit;
 		}
 		catch (Exception $e) {
 			$signin_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';

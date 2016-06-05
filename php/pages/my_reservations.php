@@ -16,8 +16,9 @@
 			//session expired
 			//reset all the session variables
 			session_unset();
-			die("ACCESS DENIED");
-			//NOT DESTROY THE SESSION!
+			//redirect to the signin page
+			header("location: signin.php");
+			die("Expired session");
 		}
 	}
 	

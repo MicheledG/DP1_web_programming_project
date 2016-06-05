@@ -16,8 +16,9 @@
 			//session expired
 			//reset all the session variables
 			session_unset();
-			die("ACCESS DENIED");
-			//NOT DESTROY THE SESSION!
+			//redirect to the signin page
+			header("location: signin.php");
+			die("Expired session");
 		}
 	}
 	
@@ -51,7 +52,7 @@
 					$start_time_m, $duration_time);
 			
 			//if no exception (no availability) insert the new reservation
-			insert_new_reservation($conn_id, 1 /*USER ID!!!*/, $start_time_h,
+			insert_new_reservation($conn_id, $_SESSION['user_id'], $start_time_h,
 					$start_time_m, $duration_time, $available_machine);
 				
 			$insert_operation_result = '<span class="success">'."New reservation added

@@ -9,14 +9,31 @@
 		//availble session for the specific user on the server
 		$elapsed_time = time() - $_SESSION['timeout'];
 		if($elapsed_time < MAX_SESSION_TIME){
-			//set the new timeout session time
-			$_SESSION['timeout'] = time();
+			//valid session for the user
+			//update the new timeout session time
+			if(isset($_SESSION['just_signedin'])){
+				//user just singned in
+				//first clear the flag
+				unset($_SESSION['just_signedin']);
+				//greetings to the user
+				echo '<script type="text/javascript">
+					alert("User '.$_SESSION['user_email'].' succesfully signed in!");
+				</script>';
+			}
+			elseif (isset($_SESSION['just_signedup'])){
+				//user just signed up
+				//first clear the flag
+				unset($_SESSION['just_signedup']);
+				//greetings to the user
+				echo '<script type="text/javascript">
+					alert("User '.$_SESSION['user_email'].' succesfully signed up!");
+				</script>';
+			}
 		} 
 		else {
 			//session expired
-			//reset all the session variables
 			session_unset();
-			//NOT DESTROY THE SESSION!
+			session_destroy();
 		}
 	}
 	

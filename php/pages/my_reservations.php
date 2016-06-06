@@ -14,8 +14,8 @@
 		} 
 		else {
 			//session expired
-			//reset all the session variables
 			session_unset();
+			session_destroy;
 			//redirect to the signin page
 			header("location: signin.php");
 			die("Expired session");

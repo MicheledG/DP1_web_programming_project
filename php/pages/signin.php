@@ -4,27 +4,27 @@
 	//or create and send to the user the session cookie
 	session_start(); 
  	$user_signedin = false;
- 	$signin_operation_result = "";
  	$user_email = "";
  	$user_password = "";
+ 	$signin_error = "";
 	
 	//check if there is already an opened session
 	if(isset($_SESSION['user_id']) && isset($_SESSION['timeout'])){
 		//availble session for the specific user on the server
 		$elapsed_time = time() - $_SESSION['timeout'];
 		if($elapsed_time < MAX_SESSION_TIME){
-			//still valid session
-			$signin_operation_result = '<span class="warning">'.'User "'
-						.$_SESSION['user_email'].'" already signed in!</span>';
-			//set the new timeout session time
+			//still valid session => set the new timeout session time
 			$_SESSION['timeout'] = time();
 			$user_signedin = true;
+			$signin_error = '<span class="warning"> User "'.$_SESSION['user_email'].'" already signed in</span>';
+			echo '<script type="text/javascript">
+					alert("User '.$_SESSION['user_email'].' already signed in!");
+				</script>';
 		} 
 		else {
 			//session expired
-			//reset all the session variables
 			session_unset();
-			//NOT DESTROY THE SESSION!
+			session_destroy();
 		}
 	}
 	
@@ -47,23 +47,20 @@
 			//returns user_id and name in an associative array
 			$found_user = search_user($conn_id, $user_email, $user_password);
 			
-			$signin_operation_result = '<span class="success">'.'Welcome back "'
-				.$found_user['name'].'"!</span>';
-			
 			//with a succesful sign in set the session parameters
 			$_SESSION['user_id'] = $found_user['user_id'];
 			$_SESSION['user_email'] = $found_user['email'];
 			$_SESSION['user_name'] = $found_user['name'];
 			$_SESSION['timeout'] = time();
+			$_SESSION['just_signedin'] = true;
 			
 			disconnect_to_project_db($conn_id);
 			
-			//redirect to the home page
 			header("location: home.php");
 			exit;
 		}
 		catch (Exception $e) {
-			$signin_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';
+			$signin_error = '<span class="warning">'. $e->getMessage() . '</span>';
 		}
 	}
 ?>
@@ -84,27 +81,29 @@
 		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
-		<h2>Sign In</h2>	
-		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSigninForm()"> 
-			<span class="warining">All fields are required</span>
-			<table>
-				<tr>
-					<td>Email:</td>
-					<td><input type="email" name="user_email" class="user_input" required="required"
-						value="<?php echo $user_email;?>"></td>
-					<td><span class="warning"></span></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type="password" name="user_password" class="user_input" required="required"
-						value="<?php echo $user_password;?>"></td>
-					<td><span class="warning"></span></td>
-				</tr>
-			</table>
-			<input type="submit" value="Submit">
-			<input type="button" value="Clear" onclick="clearSigninForm()">
-		</form>
-		<?php echo $signin_operation_result?>
+		<h2>Sign In</h2>
+		<fieldset>	
+			<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSigninForm()"> 
+				<table>
+					<tr>
+						<td>Email:</td>
+						<td><input type="email" name="user_email" class="user_input" required="required"
+							value="<?php echo $user_email;?>"></td>
+						<td><span class="warning"></span></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><input type="password" name="user_password" class="user_input" required="required"
+							value="<?php echo $user_password;?>"></td>
+						<td><span class="warning"></span></td>
+					</tr>
+				</table>
+				<span class="warining">All fields are required</span>
+				<input type="submit" value="Submit">
+				<input type="button" value="Clear" onclick="clearSigninForm()">
+			</form>
+		</fieldset>
+		<?php echo $signin_error?>
 	</section>
 	<footer>
 		<?php include_once '../utility/footer.php';?>

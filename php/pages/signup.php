@@ -24,9 +24,8 @@
 		} 
 		else {
 			//session expired
-			//reset all the session variables
 			session_unset();
-			//NOT DESTROY THE SESSION!
+			session_destroy();
 		}
 	}
 	
@@ -65,6 +64,7 @@
 			$_SESSION['user_email'] = $inserted_user['email'];
 			$_SESSION['user_name'] = $inserted_user['name'];
 			$_SESSION['timeout'] = time();
+			$_SESSION['just_signedup'] = true;
 			
 			disconnect_to_project_db($conn_id);
 			
@@ -94,42 +94,44 @@
 	</nav>
 	<section>
 		<h2>Sign Up</h2>
-		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSignupForm()"> 
-			<span class="warining">All fields are required</span>
-			<table>
-				<tr>
-					<td>Name:</td>
-					<td><input type="text" name="user_name" class="user_input" required="required"
-						value="<?php echo $user_name;?>"></td>
-					<td><span class="warning"></span></td>
-				</tr>
-				<tr>
-					<td>Last Name:</td>
-					<td><input type="text" name="user_lastname" class="user_input" required="required"
-						value="<?php echo $user_lastname;?>"></td>
-					<td><span class="warning"></span></td>
-				</tr>
-				<tr>
-					<td>Email:</td>
-					<td><input type="email" name="user_email" class="user_input" required="required"
-						value="<?php echo $user_email;?>"></td>
-					<td><span class="warning"></span></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type="password" name="user_password" class="user_input" required="required"
-						value="<?php echo $user_password;?>"></td>
-					<td><span class="warning"></span></td>
-				</tr>
-				<tr>
-					<td>Confirm Password:</td>
-					<td><input type="password" name="user_confirm_password" class="user_input" required="required"></td>
-					<td><span class="warning"></span></td>
-				</tr>
-			</table>
-			<input type="submit" value="Submit">
-			<input type="button" value="Clear" onclick="clearSignupForm()">
-		</form>
+		<fieldset>
+			<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSignupForm()"> 
+				<table>
+					<tr>
+						<td>Name:</td>
+						<td><input type="text" name="user_name" class="user_input" required="required"
+							value="<?php echo $user_name;?>"></td>
+						<td><span class="warning"></span></td>
+					</tr>
+					<tr>
+						<td>Last Name:</td>
+						<td><input type="text" name="user_lastname" class="user_input" required="required"
+							value="<?php echo $user_lastname;?>"></td>
+						<td><span class="warning"></span></td>
+					</tr>
+					<tr>
+						<td>Email:</td>
+						<td><input type="email" name="user_email" class="user_input" required="required"
+							value="<?php echo $user_email;?>"></td>
+						<td><span class="warning"></span></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><input type="password" name="user_password" class="user_input" required="required"
+							value="<?php echo $user_password;?>"></td>
+						<td><span class="warning"></span></td>
+					</tr>
+					<tr>
+						<td>Confirm Password:</td>
+						<td><input type="password" name="user_confirm_password" class="user_input" required="required"></td>
+						<td><span class="warning"></span></td>
+					</tr>
+				</table>
+				<span class="warining">All fields are required</span>
+				<input type="submit" value="Submit">
+				<input type="button" value="Clear" onclick="clearSignupForm()">
+			</form>
+		</fieldset>
 		<?php echo $insert_operation_result?>
 	</section>
 	<footer>

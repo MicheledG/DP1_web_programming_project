@@ -16,7 +16,7 @@
 			//still valid session => set the new timeout session time
 			$_SESSION['timeout'] = time();
 			$user_signedin = true;
-			$signin_error = '<span class="warning"> User "'.$_SESSION['user_email'].'" already signed in</span>';
+			$signin_error = 'User "'.$_SESSION['user_email'].'" already signed in';
 			echo '<script type="text/javascript">
 					alert("User '.$_SESSION['user_email'].' already signed in!");
 				</script>';
@@ -60,7 +60,7 @@
 			exit;
 		}
 		catch (Exception $e) {
-			$signin_error = '<span class="warning">'. $e->getMessage() . '</span>';
+			$signin_error = $e->getMessage();
 		}
 	}
 ?>
@@ -72,6 +72,7 @@
 	<script type="text/javascript" src="../../js/validate_input_js_functions.js"></script>
 	<script type="text/javascript" src="../../js/signin_js_functions.js"></script>
 	<link rel="stylesheet" href="../../css/common_style.css">
+	<link rel="stylesheet" href="../../css/signin_style.css">
 </head>
 <body>
 	<header>
@@ -82,6 +83,9 @@
 	</nav>
 	<section>
 		<h2>Sign In</h2>
+		<div id="warning_div">
+			<?php echo $signin_error?>
+		</div>
 		<fieldset>	
 			<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSigninForm()"> 
 				<table>
@@ -89,21 +93,21 @@
 						<td>Email:</td>
 						<td><input type="email" name="user_email" class="user_input" required="required"
 							value="<?php echo $user_email;?>"></td>
-						<td><span class="warning"></span></td>
+						<td><p class="warning"></p></td>
 					</tr>
 					<tr>
 						<td>Password:</td>
 						<td><input type="password" name="user_password" class="user_input" required="required"
 							value="<?php echo $user_password;?>"></td>
-						<td><span class="warning"></span></td>
+						<td colspan="2"><p class="warning"></p></td>
 					</tr>
 				</table>
-				<span class="warining">All fields are required</span>
-				<input type="submit" value="Submit">
-				<input type="button" value="Clear" onclick="clearSigninForm()">
+				<div id="buttons">
+					<input id="submit" type="submit" value="Submit">
+					<input id="clear" type="button" value="Clear" onclick="clearSigninForm()">
+				</div>
 			</form>
 		</fieldset>
-		<?php echo $signin_error?>
 	</section>
 	<footer>
 		<?php include_once '../utility/footer.php';?>

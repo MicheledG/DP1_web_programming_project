@@ -7,6 +7,9 @@ function clearSigninForm(){
 }
 
 function validateSigninForm(){
+	var warningDiv = document.getElementById("warning_div");
+	warningDiv.innerHTML = "";
+	
 	//collect user input and correspondent warning message
 	var signinFormElements = document.getElementsByTagName("input");
 	var warningElements = document.getElementsByClassName("warning");

@@ -52,22 +52,29 @@
 			//connect to the db
 			$conn_id = connect_to_project_db();
 			
-			//check availbality of machine for the requested reservation
+			//start transaction to insert a new reservation
+			mysqli_autocommit($conn_id, false);
+			
+			//check availability of machine for the requested reservation
 			$available_machine = check_machine_availability($conn_id, $start_time_h,
 					$start_time_m, $duration_time);
 			
-			//if no exception (no availability) insert the new reservation
+			//if no exception (there is availability) insert the new reservation
 			insert_new_reservation($conn_id, $_SESSION['user_id'], $start_time_h,
 					$start_time_m, $duration_time, $available_machine);
 				
 			$insert_operation_result = '<span class="success">'."New reservation added
 					succesfully!".'</span>';
 			
+			//everything is ok
+			mysqli_commit($conn_id);
+			
 			//close the connection
 			
 			disconnect_to_project_db($conn_id);
 		}
 		catch (Exception $e) {
+			mysqli_rollback();
 			$insert_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';
 		}
 	}

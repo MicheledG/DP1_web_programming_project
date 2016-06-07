@@ -42,6 +42,7 @@
 			if(!isset($_POST['selected_reservation'])) {
 				throw new Exception("exception: not selected reservations to remove");
 			}
+			
 			$selected_reservations = $_POST['selected_reservation'];
 				
 			//connect and delete all selected reservations then close connection

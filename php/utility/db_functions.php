@@ -150,6 +150,8 @@ function check_machine_availability($conn_id, $start_time_h, $start_time_m, $dur
 			WHERE ".$start_time." <= start_time AND ".($start_time + $duration_time)." >= start_time OR 
 					".$start_time.">= start_time AND ".$start_time." <= start_time + duration_time
 			GROUP BY selected_machine";
+	//ADD THE SQL QUERY FOR THE TRANSACTION
+	$sql_query .= "\nFOR UPDATE";
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	

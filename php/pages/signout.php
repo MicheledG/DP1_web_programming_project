@@ -1,8 +1,15 @@
 <?php include_once '../utility/project_defined_values.php';?>
+<?php include_once '../utility/utilities.php';?>
+<?php include_once '../utility/db_functions.php';?>
 <?php 
+	require_COOKIE();
 	//open the session relative to the received session cookie of the user
 	//or create and send to the user the session cookie
 	session_start();
+	
+	//check HTTPS connection
+	require_HTTPS();
+	
 	$signout_result = "";
 	
 	//check if there is already an opened session
@@ -36,6 +43,7 @@
 		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
+		<?php test_js();?>
 		<p class="success"><?php echo $signout_result;?> </p>
 	</section>
 	<footer>

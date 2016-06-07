@@ -1,8 +1,15 @@
 <?php include_once '../utility/project_defined_values.php';?>
+<?php include_once '../utility/utilities.php';?>
+<?php include_once '../utility/db_functions.php';?>
 <?php 
+	require_COOKIE();
 	//open the session relative to the received session cookie of the user
 	//or create and send to the user the session cookie
-	session_start(); 
+	session_start();
+	
+	//check HTTPS connection
+	require_HTTPS();
+	
  	$user_signedin = false;
  	$user_email = "";
  	$user_password = "";
@@ -31,7 +38,6 @@
 ?>
 <?php 
 	//manage the sign in operation
-	include_once '../utility/db_functions.php';
 	
 	//check if it is a post request to add a new user inside the database
 	if ($_SERVER['REQUEST_METHOD']=='POST' && !$user_signedin){
@@ -82,6 +88,7 @@
 		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
+		<?php test_js();?>
 		<h2>Sign In</h2>
 		<div id="warning_div">
 			<?php echo $signin_error?>

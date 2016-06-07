@@ -43,4 +43,30 @@
  	return $str_password;
  }
  
+ function require_HTTPS () {
+ 	
+ 	if($_SERVER["HTTPS"] != "on")
+ 	{
+ 		header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+ 		exit();
+ 	}	
+ }
+ 
+ function require_COOKIE () {
+ 
+ 	if (!isset($_COOKIE["cookie_enabled"])) {
+ 		setcookie("cookie_enabled", true, time() + COOKIE_ENABLED_TIMEOUT);
+ 		setcookie("prev_page", $_SERVER["PHP_SELF"], time() + COOKIE_PREV_PAGE_TIMEOUT);
+ 		header("Location: check_cookie.php");
+ 		exit();
+ 	}
+ 	
+ }
+ 
+ function test_js () {
+ 	echo '<script type="text/javascript">/* empty script */</script>
+		<noscript><p class="warning">JavaScript is off. Please enable to view full site.</p></noscript>';
+ 
+ }
+ 
  ?>

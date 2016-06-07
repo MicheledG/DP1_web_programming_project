@@ -1,8 +1,14 @@
 <?php include_once '../utility/project_defined_values.php';?>
+<?php include_once '../utility/utilities.php';?>
+<?php include_once '../utility/db_functions.php';?>
 <?php 
+	require_COOKIE();
 	//open the session relative to the received session cookie of the user
 	//or create and send to the user the session cookie
 	session_start(); 
+	
+	//check HTTPS connection
+	require_HTTPS();
 	
 	//check if there is already an opened session
 	if(isset($_SESSION['user_id']) && isset($_SESSION['timeout'])){
@@ -25,7 +31,6 @@
 ?>
 <?php 
 	//manage reservation isertion
-	include_once '../utility/db_functions.php';
 	$insert_operation_result = "";
 	
 	//check if it is a post request to add a new reservation inside the database
@@ -83,6 +88,7 @@
 		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
+		<?php test_js();?>
 		<h2>Add Reservation</h2>
 		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>"> 
 			<span class="warning">All fields are required</span>

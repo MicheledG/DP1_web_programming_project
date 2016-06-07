@@ -1,14 +1,23 @@
 <?php include_once '../utility/project_defined_values.php';?>
+<?php include_once '../utility/utilities.php';?>
+<?php include_once '../utility/db_functions.php';?>
 <?php 
+	require_COOKIE();
 	//open the session relative to the received session cookie of the user
 	//or create and send to the user the session cookie
 	session_start(); 
+	
+	//check HTTPS connection
+	require_HTTPS();
+	
+	
  	$user_signedin = false;
  	$insert_operation_result = "";
 	$user_name = "";
 	$user_lastname = "";
 	$user_email = "";
 	$user_password = "";
+	
 	
 	//check if there is already an opened session
 	if(isset($_SESSION['user_id']) && isset($_SESSION['timeout'])){
@@ -32,7 +41,6 @@
 ?>
 <?php 
 	//manage sign up operation
-	include_once '../utility/db_functions.php';
 	
 	//check if it is a post request to add a new user inside the database
 	if ($_SERVER['REQUEST_METHOD']=='POST' && !$user_signedin){
@@ -93,6 +101,8 @@
 		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
+		<?php test_js()?>
+		
 		<h2>Sign Up</h2>
 		<fieldset>
 			<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSignupForm()"> 

@@ -99,6 +99,33 @@ function retrieve_reservations($conn_id, $user_id = null){
 
 function delete_reservation($conn_id, $res_id){
 	
+	//check starting time of the reservation
+	$sql_query = "SELECT start_time FROM RESERVATIONS WHERE res_id = ".$res_id;
+	
+	$res = mysqli_query($conn_id, $sql_query);
+	
+	$res_type = gettype($res);
+	
+	switch ($res_type) {
+		case "boolean": //only false is the possible value
+			throw new Exception("exception: ".mysqli_error($conn_id));
+		case "object": //it a mysqli_object with the resulting rows
+			$start_time = mysqli_fetch_assoc($res);
+			$start_time = intval($start_time['start_time']);
+			break;
+		default:
+			throw new Exception("exception: unexpected query result");
+	}
+	
+	$actual_time = intval(date("H"))*HOUR_MIN + intval(date("i"));
+	
+	if($actual_time >= $start_time){
+		throw new Exception("exception: reservation nr. '".$res_id."' already started");
+	} 
+	elseif ($actual_time < $start_time && $actual_time >= $start_time - MIN_MARGIN){
+		throw new Exception("exception: reservation nr. '".$res_id."' starts in less than ".MIN_MARGIN." min!");
+	}
+	
 	$sql_query = "DELETE FROM RESERVATIONS
 			WHERE res_id = ".$res_id;
 	

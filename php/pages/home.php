@@ -1,5 +1,9 @@
 <?php include_once '../utility/project_defined_values.php';?>
+<?php include_once '../utility/utilities.php';?>
 <?php 
+	//check if cookies are enabled
+	require_COOKIE();
+	
 	//open the session relative to the received session cookie of the user
 	//or create and send to the user the session cookie
 	session_start(); 
@@ -53,6 +57,7 @@
 		<?php include_once '../utility/nav.php'?>
 	</nav>
 	<section>
+		<?php test_js();?>
 		<h2>Home</h2>
 		<table>
 			<thead>

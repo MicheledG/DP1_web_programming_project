@@ -30,7 +30,7 @@
 	
 ?>
 <?php 
-	//manage reservation isertion
+	//manage reservation isertion form
 	$insert_operation_result = "";
 	
 	//check if it is a post request to add a new reservation inside the database

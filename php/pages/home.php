@@ -21,7 +21,7 @@
 				unset($_SESSION['just_signedin']);
 				//greetings to the user
 				echo '<script type="text/javascript">
-					alert("User '.$_SESSION['user_email'].' succesfully signed in!");
+					alert("User \"'.$_SESSION['user_email'].'\" succesfully signed in!");
 				</script>';
 			}
 			elseif (isset($_SESSION['just_signedup'])){
@@ -30,7 +30,7 @@
 				unset($_SESSION['just_signedup']);
 				//greetings to the user
 				echo '<script type="text/javascript">
-					alert("User '.$_SESSION['user_email'].' succesfully signed up!");
+					alert("User \"'.$_SESSION['user_email'].'\" succesfully signed up!");
 				</script>';
 			}
 		} 

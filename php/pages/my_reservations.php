@@ -30,7 +30,7 @@
 	
 ?>
 <?php 
-	//manage reservation removal
+	//manage reservation removal form
 	include_once '../utility/db_functions.php';
 	//prepare the remove operation result message
 	$remove_operation_result = "";

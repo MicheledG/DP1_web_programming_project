@@ -30,6 +30,9 @@
 		} 
 		else {
 			//session expired
+			echo '<script type="text/javascript">
+					alert("Session expired, please sign in again!");
+				</script>';
 			session_unset();
 			session_destroy();
 		}

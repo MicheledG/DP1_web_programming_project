@@ -48,14 +48,19 @@
 			//connect and delete all selected reservations then close connection
 			$conn_id = connect_to_project_db();
 			
+			mysqli_autocommit($conn_id, false);
+			
 			foreach ($selected_reservations as $selected_reservation) {
-				delete_reservation($conn_id, $selected_reservation);
+					delete_reservation($conn_id, $selected_reservation);
 			}
-				
+			
+			mysqli_commit($conn_id);
+			
 			disconnect_to_project_db($conn_id);
 		}
 		catch (Exception $e) {
-			echo '<span class="warning">'. $e->getMessage() . '</span>';
+			mysqli_rollback($conn_id);
+			$remove_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';
 		}
 	}
 ?>

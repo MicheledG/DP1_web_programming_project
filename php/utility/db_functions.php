@@ -120,10 +120,10 @@ function delete_reservation($conn_id, $res_id){
 	$actual_time = intval(date("H"))*HOUR_MIN + intval(date("i"));
 	
 	if($actual_time >= $start_time){
-		throw new Exception("exception: reservation nr. '".$res_id."' already started");
+		throw new Exception("exception: selected reservations with past starting time");
 	} 
 	elseif ($actual_time < $start_time && $actual_time >= $start_time - MIN_MARGIN){
-		throw new Exception("exception: reservation nr. '".$res_id."' starts in less than ".MIN_MARGIN." min!");
+		throw new Exception("exception: selected reservations starting in less than ".MIN_MARGIN." min!");
 	}
 	
 	$sql_query = "DELETE FROM RESERVATIONS

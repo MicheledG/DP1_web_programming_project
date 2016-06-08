@@ -21,7 +21,10 @@ function validateRemoveReservationsForm(){
 	
 	if(!validForm){
 		alert("Select at least one reservation to remove!");
-	}
+	} 
+	else {
+		validForm = confirm("Want to remove " + myreservationsFormElements.length + " reservations?");
+	} 
 
 	return validForm;
 }

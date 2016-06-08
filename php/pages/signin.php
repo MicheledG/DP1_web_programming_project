@@ -1,7 +1,8 @@
 <?php include_once '../utility/project_defined_values.php';?>
 <?php include_once '../utility/utilities.php';?>
 <?php include_once '../utility/db_functions.php';?>
-<?php 
+<?php //manage cookie check and session
+
 	require_COOKIE();
 	//open the session relative to the received session cookie of the user
 	//or create and send to the user the session cookie
@@ -51,8 +52,7 @@
 	
 	
 ?>
-<?php 
-	//manage the sign in operation
+<?php //manage the sign in form
 	
 	//check if it is a post request to add a new user inside the database
 	if ($_SERVER['REQUEST_METHOD']=='POST' && !$user_signedin){

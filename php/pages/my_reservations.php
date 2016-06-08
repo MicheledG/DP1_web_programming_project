@@ -1,21 +1,24 @@
 <?php include_once '../utility/project_defined_values.php';?>
 <?php include_once '../utility/utilities.php';?>
 <?php include_once '../utility/db_functions.php';?>
-<?php 
+<?php //manage cookie check and session
+
+	//check cookies are enabled
 	require_COOKIE();
-	//open the session relative to the received session cookie of the user
-	//or create and send to the user the session cookie
-	session_start(); 
 	
 	//check HTTPS connection
 	require_HTTPS();
 	
-	//check if there is already an opened session
+	session_start(); 
+	
+	//check if there is already an active session
 	if(isset($_SESSION['user_id']) && isset($_SESSION['timeout'])){
-		//availble session for the specific user on the server
+		//active session for the specific user on the server
+		//check if the session is expired
 		$elapsed_time = time() - $_SESSION['timeout'];
 		if($elapsed_time < MAX_SESSION_TIME){
-			//set the new timeout session time
+			//session not expired
+			//update session timeout
 			$_SESSION['timeout'] = time();
 		} 
 		else {
@@ -25,12 +28,12 @@
 	}
 	
 ?>
-<?php 
-	//manage reservation removal form
-	include_once '../utility/db_functions.php';
-	//prepare the remove operation result message
+<?php //manage reservation removal
+	
+	//remove operation message
 	$remove_operation_result = "";
-	//check if it is a post request to add a new user inside the database
+	
+	//check if it is a post request to remove reservations from database
 	if ($_SERVER['REQUEST_METHOD']=='POST'){
 	
 		try {
@@ -41,7 +44,7 @@
 			
 			$selected_reservations = $_POST['selected_reservation'];
 				
-			//connect and delete all selected reservations then close connection
+			//connect and start transaction to delete all selected reservations then close connection
 			$conn_id = connect_to_project_db();
 			
 			mysqli_autocommit($conn_id, false);
@@ -51,6 +54,8 @@
 			}
 			
 			mysqli_commit($conn_id);
+			
+			$remove_operation_result = '<span class="success"> Reservations removed </span>';
 			
 			disconnect_to_project_db($conn_id);
 		}
@@ -90,7 +95,51 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php include_once "../utility/my_reservations_table.php"?>
+				<?php //retrieve the reservations from the db
+
+					try{
+						//retrieve reservations for the actual user_id (session needs to be implemented)
+						$conn_id = connect_to_project_db();
+					
+						$user_reservations = retrieve_reservations($conn_id, $_SESSION['user_id']);
+					
+						if(mysqli_num_rows($user_reservations) > 0){
+							//put in the table the reservations
+							$reservation_number = 0;
+							while($reservation = mysqli_fetch_assoc($user_reservations)) {
+								echo '<tr>';
+								echo '<td><input type="checkbox" name="selected_reservation[]"
+							value="'.$reservation['res_id'].'">';
+								echo '</td>';
+								echo '<td>';
+								echo $reservation['res_id'];
+								echo '</td>';
+								//compute start_time_h and start_time_m
+								$start_time_h = floor($reservation['start_time'] / 60);
+								$start_time_m = $reservation['start_time'] % 60;
+								echo '<td>';
+								printf("%02d:%02d", $start_time_h, $start_time_m);
+								echo '</td>';
+								echo '<td>';
+								echo $reservation['duration_time'];
+								echo '</td>';
+								echo '<td>';
+								echo $reservation['selected_machine'];
+								echo '</td>';
+								echo '</tr>';
+								$reservation_number++;
+							}
+							$table_status = '<span class="success">Nr. active reservations: '.$reservation_number.'</span>';
+						}
+						else {
+							//no reservations available for the actual user_id
+							$table_status = '<span class="warning">No registered reservations</span>';
+						}
+					}
+					catch (Exception $e) {
+						$table_status = '<span class="warning">Error occured downloading reservations</span>';
+					}
+				?>
 			</tbody>
 			</table>
 			<?php echo $table_status;?>

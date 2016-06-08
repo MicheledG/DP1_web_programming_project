@@ -1,7 +1,8 @@
 <?php include_once '../utility/project_defined_values.php';?>
 <?php include_once '../utility/utilities.php';?>
 <?php include_once '../utility/db_functions.php';?>
-<?php 
+<?php //manage cookie check and session 
+
 	require_COOKIE();
 	//open the session relative to the received session cookie of the user
 	//or create and send to the user the session cookie
@@ -26,8 +27,8 @@
 	}
 	
 ?>
-<?php 
-	//manage reservation isertion form
+<?php //manage reservation isertion form 
+	
 	$insert_operation_result = "";
 	
 	//check if it is a post request to add a new reservation inside the database
@@ -71,7 +72,7 @@
 			disconnect_to_project_db($conn_id);
 		}
 		catch (Exception $e) {
-			mysqli_rollback();
+			mysqli_rollback($conn_id);
 			$insert_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';
 		}
 	}
@@ -94,7 +95,7 @@
 	<section>
 		<?php test_js();?>
 		<h2>Add Reservation</h2>
-		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>"> 
+		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateAddReservationForm()"> 
 			<span class="warning">All fields are required</span>
 			<table id="add_reservation_table">
 			</table>

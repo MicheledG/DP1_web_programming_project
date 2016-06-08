@@ -55,13 +55,13 @@
 			
 			mysqli_commit($conn_id);
 			
-			$remove_operation_result = '<span class="success"> Reservations removed </span>';
+			$remove_operation_result = '<p class="success"> Reservations removed </p>';
 			
 			disconnect_to_project_db($conn_id);
 		}
 		catch (Exception $e) {
 			mysqli_rollback($conn_id);
-			$remove_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';
+			$remove_operation_result = '<p class="warning">'. $e->getMessage() . '</p>';
 		}
 	}
 ?>
@@ -71,6 +71,7 @@
 	<title>Reservation System</title>
 	<script type="text/javascript" src="../../js/my_reservations_js_functions.js"></script>
 	<link rel="stylesheet" href="../../css/common_style.css">
+	<link rel="stylesheet" href="../../css/my_reservations_style.css">
 </head>
 <body>
 	<header>
@@ -84,7 +85,10 @@
 		<h2>My Reservations</h2>
 		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" 
 		onsubmit="return validateRemoveReservationsForm()">
-			<table>
+			<table id="my-reservations-table">
+			<caption>
+				Reservations Table
+			</caption>
 			<thead>
 				<tr>
 					<td>Selected</td>
@@ -101,6 +105,9 @@
 						//retrieve reservations for the actual user_id (session needs to be implemented)
 						$conn_id = connect_to_project_db();
 					
+						$tot_reservations = "";
+						$table_warning = "";
+						
 						$user_reservations = retrieve_reservations($conn_id, $_SESSION['user_id']);
 					
 						if(mysqli_num_rows($user_reservations) > 0){
@@ -109,7 +116,7 @@
 							while($reservation = mysqli_fetch_assoc($user_reservations)) {
 								echo '<tr>';
 								echo '<td><input type="checkbox" name="selected_reservation[]"
-							value="'.$reservation['res_id'].'">';
+								value="'.$reservation['res_id'].'">';
 								echo '</td>';
 								echo '<td>';
 								echo $reservation['res_id'];
@@ -129,24 +136,31 @@
 								echo '</tr>';
 								$reservation_number++;
 							}
-							$table_status = '<span class="success">Nr. active reservations: '.$reservation_number.'</span>';
+							$tot_reservations = $reservation_number;
 						}
 						else {
 							//no reservations available for the actual user_id
-							$table_status = '<span class="warning">No registered reservations</span>';
+							$tot_reservations = 0;
 						}
 					}
 					catch (Exception $e) {
-						$table_status = '<span class="warning">Error occured downloading reservations</span>';
+						$table_warning = 'Error occured downloading reservations';
 					}
 				?>
 			</tbody>
 			</table>
-			<?php echo $table_status;?>
+			<div id="tot-reservations">
+				<p>Total reservations: <?php echo $tot_reservations;?></p>
+			</div>
+			<div id="table-warning">
+				<p class="warning"><?php echo $table_warning;?></p>
+			</div>
 			<a href="add_reservation.php"><input type="button" value="Add" ></a>
 			<input type="submit" value="Remove">
-			<?php echo $remove_operation_result;?>
 		</form>
+		<div id="remove-operation-result">
+			<?php echo $remove_operation_result;?>	
+		</div>
 	</section>
 	<footer>
 		<?php include_once '../utility/footer.php';?>

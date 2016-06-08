@@ -23,15 +23,19 @@ header h1{
 
 nav {
 	float: left;
-	width: 15%;
-	border: 0px none black;
-	padding: 0px;
+	
+	width: 13%;
+	height: 100%;
+	
 	margin: 0px;
-	height: 500px;
+	border: 0px none black;
+	padding-left: 1%;
+	padding-right: 1%;
 	overflow: auto;
+	
 	background-color: #80bfff;
 	font-weight: normal;
-	text-align: center;
+	text-align: left;
 	color: black; 
 }
 
@@ -40,21 +44,40 @@ nav ul {
 	padding: 0px;
 }
 
+#active-user-email {
+	width: 80%;
+	overflow: hidden;
+	padding-bottom: 10px;
+}
+
 section {
-	float: right;
+	float: none;
+	
 	width: 65%;
+	height: 100%;
+	
 	border: 0px none black;
 	padding-right: 10%;
 	padding-left: 10%;
 	margin: 0px;
-	height: 500px;
+	
 	overflow: auto;
+	
 	font-weight: normal;
 	color: black;
+	
 }
 
 footer {
+	clear: none;
 	padding-right: 10px;
 	text-align: right;
-	clear: both;
+}
+
+.warning {
+	color: red;
+}
+
+.success {
+	color: green;
 }

@@ -64,7 +64,10 @@
 	<section>
 		<?php test_js();?>
 		<h2>Home</h2>
-		<table>
+		<table id="reservations-table">
+			<caption>
+				Reservations Table
+			</caption>
 			<thead>
 				<tr>
 					<td>Reservation IDs</td>
@@ -76,7 +79,10 @@
 			</thead>
 			<tbody>
 				<?php //retrieve reservations for the all the users 
-				
+					
+					$tot_reservations = "";
+					$table_warning = "";
+
 					try{
 						$conn_id = connect_to_project_db();
 					
@@ -108,20 +114,25 @@
 								echo '</tr>';
 								$reservation_number++;
 							}
-							$table_status = '<span class="success">Nr. reservations: '.$reservation_number.'</span>';
+							$tot_reservations = $reservation_number;
 						}
 						else {
 							//no reservations available
-							$table_status = '<span class="warning">No registered reservations</span>';
+							$tot_reservations = 0;
 						}
 					}
 					catch (Exception $e) {
-						echo $table_status = '<span class="warning">Error occured downloading reservations</span>';
+						$table_warning = "Error occured downloading reservations";
 					}
 				?>
 			</tbody>
 		</table>
-		<?php echo $table_status;?>
+		<div id="tot-reservations">
+			<p>Total reservations: <?php echo $tot_reservations;?></p>
+		</div>
+		<div id="table-warning">
+			<p class="warning"><?php echo $table_warning;?></p>
+		</div>
 	</section>
 	<footer>
 		<?php include_once '../utility/footer.php'?>

@@ -29,14 +29,26 @@
 				</script>';
 		} 
 		else {
-			//session expired
-			echo '<script type="text/javascript">
-					alert("Session expired, please sign in again!");
-				</script>';
-			session_unset();
-			session_destroy();
+			//session expired => redirect to sign out
+			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signout.php?status=expired");
 		}
 	}
+	elseif(isset($_GET['status'])){
+		//check what cause the redirect to the sign in
+		switch ($_GET['status']){
+			case "expired":
+				//expired session
+				echo '<script type="text/javascript">
+					alert("Expired session, please sign in again!");
+					</script>';
+				break;
+			default:
+				//unexpected
+				$signin_error = "Unexpected session status";
+				break;
+		}
+	}
+	
 	
 ?>
 <?php 
@@ -61,11 +73,11 @@
 			$_SESSION['user_email'] = $found_user['email'];
 			$_SESSION['user_name'] = $found_user['name'];
 			$_SESSION['timeout'] = time();
-			$_SESSION['just_signedin'] = true;
 			
 			disconnect_to_project_db($conn_id);
 			
-			header("location: home.php");
+			//redirect to the home page
+			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/home.php?status=signed_in");
 			exit;
 		}
 		catch (Exception $e) {

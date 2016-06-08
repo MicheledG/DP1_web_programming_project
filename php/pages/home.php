@@ -8,36 +8,38 @@
 	//or create and send to the user the session cookie
 	session_start(); 
 	
-	//check if there is already an opened session
+	//check if there is an opened session
 	if(isset($_SESSION['user_id']) && isset($_SESSION['timeout'])){
 		//availble session for the specific user on the server
 		$elapsed_time = time() - $_SESSION['timeout'];
 		if($elapsed_time < MAX_SESSION_TIME){
 			//valid session for the user
 			//update the new timeout session time
-			if(isset($_SESSION['just_signedin'])){
-				//user just singned in
-				//first clear the flag
-				unset($_SESSION['just_signedin']);
-				//greetings to the user
-				echo '<script type="text/javascript">
-					alert("User \"'.$_SESSION['user_email'].'\" succesfully signed in!");
-				</script>';
-			}
-			elseif (isset($_SESSION['just_signedup'])){
-				//user just signed up
-				//first clear the flag
-				unset($_SESSION['just_signedup']);
-				//greetings to the user
-				echo '<script type="text/javascript">
-					alert("User \"'.$_SESSION['user_email'].'\" succesfully signed up!");
-				</script>';
+			$_SESSION['timeout'] = time();
+			//check the status of the session
+			if(isset($_GET['status'])){
+				switch ($_GET['status']){
+					case "signed_in":
+						//user just signed in
+						echo '<script type="text/javascript">
+							alert("User \"'.$_SESSION['user_email'].'\" succesfully signed in!");
+							</script>';
+						break;
+					case "signed_up":
+						//user just signed up
+						echo '<script type="text/javascript">
+							alert("User \"'.$_SESSION['user_email'].'\" succesfully signed up!");
+							</script>';
+						break;
+					default:
+						//unexpected
+						break;
+				}
 			}
 		} 
 		else {
-			//session expired
-			session_unset();
-			session_destroy();
+			//session expired => redirect to sign out
+			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signout.php?status=expired");
 		}
 	}
 	

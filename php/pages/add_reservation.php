@@ -20,11 +20,8 @@
 		} 
 		else {
 			//session expired
-			session_unset();
-			session_destroy;
-			//redirect to the signin page
-			header("location: signin.php");
-			die("Expired session");
+			//session expired => redirect to sign out
+			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signout.php?status=expired");
 		}
 	}
 	

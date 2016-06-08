@@ -33,8 +33,8 @@
 		} 
 		else {
 			//session expired
-			session_unset();
-			session_destroy();
+			//session expired => redirect to sign out
+			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signout.php?status=expired");
 		}
 	}
 	
@@ -72,12 +72,11 @@
 			$_SESSION['user_email'] = $inserted_user['email'];
 			$_SESSION['user_name'] = $inserted_user['name'];
 			$_SESSION['timeout'] = time();
-			$_SESSION['just_signedup'] = true;
 			
 			disconnect_to_project_db($conn_id);
 			
 			//redirect to the home page
-			header("location: home.php");
+			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/home.php?status=signed_up");
 		}
 		catch (Exception $e) {
 			$insert_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';

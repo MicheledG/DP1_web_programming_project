@@ -2,11 +2,9 @@
 <?php include_once '../utility/utilities.php';?>
 <?php
 	
-	if (!isset($_COOKIE["cookie_enabled"])) {
-		//stay here!
-	} 
-	else {
-		header("location: ".$_COOKIE['prev_page']);
+	//if cookies are enabled redirect to the previous page
+	if (isset($_COOKIE["cookie_enabled"])) {
+		redirect_with_status($_COOKIE['prev_page']);
 	}
 	
 ?>

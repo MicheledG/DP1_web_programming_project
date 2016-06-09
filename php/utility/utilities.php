@@ -48,7 +48,7 @@
  	if($_SERVER["HTTPS"] != "on")
  	{
  		header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
- 		exit();
+ 		exit;
  	}	
  }
  
@@ -58,7 +58,7 @@
  		setcookie("cookie_enabled", true, time() + COOKIE_ENABLED_TIMEOUT);
  		setcookie("prev_page", $_SERVER["PHP_SELF"], time() + COOKIE_PREV_PAGE_TIMEOUT);
  		header("Location: check_cookie.php");
- 		exit();
+ 		exit;
  	}
  	
  }
@@ -67,6 +67,20 @@
  	echo '<script type="text/javascript">/* empty script */</script>
 		<noscript><p class="warning">JavaScript is off. Please enable to view full site.</p></noscript>';
  
+ }
+ 
+ function redirect_with_status ($page, $status = null){
+ 	//session expired => redirect to sign out
+ 	//header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signout.php?status=expired");
+ 	//header("Location: https://" . $_SERVER["HTTP_HOST"] . "/~s231050/53474c/php/pages/".$page."?status=".$status);
+ 	if(is_null($status)){
+ 		header("Location: ".$page);
+ 	} 
+ 	else {
+ 		header("Location: ".$page."?status=".$status);
+ 	}
+ 	
+ 	exit;
  }
  
  ?>

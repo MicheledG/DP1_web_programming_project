@@ -31,9 +31,7 @@
 		} 
 		else {
 			//session expired => redirect to sign out
-			//header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signout.php?status=expired");
-			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/~s231050/53474c/php/pages/signout.php?status=expired");
-				
+			redirect_with_status("signout.php", "expired");
 		}
 	}
 	elseif(isset($_GET['status'])){
@@ -79,8 +77,7 @@
 			disconnect_to_project_db($conn_id);
 			
 			//redirect to the home page
-			//header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/home.php?status=signed_in");
-			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/~s231050/53474c/php/pages/home.php?status=signed_in");
+			redirect_with_status("home.php", "signed_in");
 			exit;
 		}
 		catch (Exception $e) {

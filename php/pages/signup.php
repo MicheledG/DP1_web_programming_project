@@ -77,8 +77,7 @@
 			disconnect_to_project_db($conn_id);
 			
 			//redirect to the home page
-			//header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/home.php?status=signed_up");
-			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/~s231050/53474c/php/pages/home.php?status=signed_up");
+			redirect_with_status("home.php", "signed_up");
 		}
 		catch (Exception $e) {
 			$insert_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';

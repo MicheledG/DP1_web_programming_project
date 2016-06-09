@@ -28,7 +28,8 @@
 			switch ($_GET['status']){
 				case "expired":
 					//session is expired redirect to sign in
-					header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signin.php?status=expired");
+					//header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signin.php?status=expired");
+					header("Location: https://" . $_SERVER["HTTP_HOST"] . "/~s231050/53474c/php/pages/signin.php?status=expired");
 					break;
 				default:
 					//unexpected status prompt the user

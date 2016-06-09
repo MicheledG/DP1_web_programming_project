@@ -23,7 +23,8 @@
 		} 
 		else {
 			//session expired => redirect to sign out
-			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signout.php?status=expired");
+			//header("Location: https://" . $_SERVER["HTTP_HOST"] . "/dp_web_programming_project/php/pages/signout.php?status=expired");
+			header("Location: https://" . $_SERVER["HTTP_HOST"] . "/~s231050/53474c/php/pages/signout.php?status=expired");
 		}
 	}
 	

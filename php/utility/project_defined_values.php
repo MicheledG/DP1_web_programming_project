@@ -2,9 +2,14 @@
 
 // CONSTANTS COMMON IN ALL THE WEB PROJECT
 define("SERVER_NAME", "localhost");
-define("SERVER_USER", "xampp_server");
-define("SERVER_PASSWORD", "password");
-define("SERVER_DB_NAME", "web_project");
+//define("SERVER_USER", "xampp_server");
+//define("SERVER_PASSWORD", "password");
+//define("SERVER_DB_NAME", "web_project");
+define("SERVER_USER", "s231050");
+define("SERVER_PASSWORD", "vagstiou");
+define("SERVER_DB_NAME", "s231050");
+
+
 
 define("MAX_SESSION_TIME", 120); //2 min
 

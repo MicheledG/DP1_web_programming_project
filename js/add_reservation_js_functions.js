@@ -53,14 +53,16 @@ function leadZero(num, size) {
 }
 
 function validateAddReservationForm() {
-	var selectElements = document.getElementsByTagName("select");
+	var selectStartH = document.getElementById("start-h-select");
+	var selectStartM = document.getElementById("start-m-select");
+	var selectDuration = document.getElementById("duration-select");
 	
-	var selectedHour = selectElements.item(0).options[selectElements.item(0).selectedIndex].innerHTML;
-	var selectedMin = selectElements.item(1).options[selectElements.item(1).selectedIndex].innerHTML;
-	var selectedDuration = selectElements.item(2).options[selectElements.item(2).selectedIndex].value;
+	var selectedHour = selectStartH.options[selectStartH.selectedIndex].innerHTML;
+	var selectedMin = selectStartM.options[selectStartM.selectedIndex].innerHTML;
+	var selectedDuration = selectDuration.options[selectDuration.selectedIndex].value;
 	
-	var userChoice = confirm("Want to add reservation with:\r" +
-			"Starting time (hh:mm): " + selectedHour + ":" + selectedMin + "\r" + 
+	var userChoice = confirm("Want to add reservation with:\r " +
+			"Starting time (hh:mm): " + selectedHour + ":" + selectedMin + "\r " + 
 			"Duration time (min): " + selectedDuration);
 
 	return userChoice;

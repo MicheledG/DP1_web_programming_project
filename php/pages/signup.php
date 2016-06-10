@@ -85,7 +85,6 @@
 <html>
 <head>
 	<title>Reservation System</title>
-	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="../../js/validate_input_js_functions.js"></script>
 	<script type="text/javascript" src="../../js/signup_js_functions.js"></script>
 	<link rel="stylesheet" href="../../css/common_style.css">

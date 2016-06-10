@@ -55,7 +55,6 @@
 <head>
 	<title>Reservation System</title>
 	<link rel="stylesheet" href="../../css/common_style.css">
-	<link rel="stylesheet" href="../../css/home_style.css">
 </head>
 <body>
 	<header>

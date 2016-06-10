@@ -2,10 +2,6 @@
  * Functions to manage the my reservations page
  */
 
-/*function clearMyReservationsForm(){
-	$(".user_input").val("");
-}*/
-
 function validateRemoveReservationsForm(){
 	//check if at least one reservation has been selected
 	var myreservationsFormElements = document.getElementsByName("selected_reservation[]");

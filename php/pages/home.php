@@ -92,27 +92,34 @@
 							//put in the table the reservations
 							$reservation_number = 0;
 							while($reservation = mysqli_fetch_assoc($reservations)) {
-								echo '<tr>';
-								echo '<td>';
-								echo $reservation['res_id'];
-								echo '</td>';
 								//compute start_time_h and start_time_m
 								$start_time_h = floor($reservation['start_time'] / 60);
 								$start_time_m = $reservation['start_time'] % 60;
-								echo '<td>';
-								printf("%02d:%02d", $start_time_h, $start_time_m);
-								echo '</td>';
-								echo '<td>';
-								echo $reservation['duration_time'];
-								echo '</td>';
-								echo '<td>';
-								echo $reservation['selected_machine'];
-								echo '</td>';
-								echo '<td>';
-								echo $reservation['email'];
-								echo '</td>';
-								echo '</tr>';
+								
+								//update number of reservation
 								$reservation_number++;
+								?>
+																
+								<!-- output the reservation row -->
+								<tr>
+									<td>
+										<?php echo $reservation['res_id']; ?>
+									</td>
+									<td>
+										<?php printf("%02d:%02d", $start_time_h, $start_time_m); ?>
+									</td>
+									<td>
+										<?php echo $reservation['duration_time']; ?>
+									</td>
+									<td>
+										<?php echo $reservation['selected_machine']; ?>
+									</td>
+									<td>
+										<?php echo $reservation['email']; ?>
+									</td>
+								</tr>
+								
+								<?php 
 							}
 							$tot_reservations = $reservation_number;
 						}

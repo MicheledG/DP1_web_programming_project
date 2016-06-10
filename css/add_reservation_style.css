@@ -1,0 +1,21 @@
+@CHARSET "ISO-8859-1";
+
+section h2 {
+	text-align: center;
+}
+
+#add-reservation-table {
+	border-collapse: collapse;
+	border-style: solid;
+	text-align: center;
+	width: 100%;
+}
+
+#add-reservation-table caption {
+	text-align: left;
+	padding-bottom: 10px;
+}
+
+#add-reservation-table tbody {
+	font-weight: normal;
+}

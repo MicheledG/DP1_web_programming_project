@@ -1,38 +1,38 @@
-function validateName(signupFormElements, formElementIndex, warningElements) {
+function validateName(nameFormElement, warningElement) {
 	//check name validity
 	var nameRegExp = /^[A-Za-z ]+$/;
 	//var nameRegExpSecondLevel = new RegExp("/^[A-Za-z]+$/");
-	var match = nameRegExp.test(signupFormElements.item(formElementIndex).value.trim());
+	var match = nameRegExp.test(nameFormElement.value.trim());
 	if(!match){
-		warningElements.item(formElementIndex).innerHTML = "invalid name: only letters and spaces are allowed";
+		warningElement.innerHTML = "invalid name: only letters and spaces are allowed";
 	} else {
-		warningElements.item(formElementIndex).innerHTML = "";
+		warningElement.innerHTML = "";
 	}
 	
 	return match;
 }
 
-function validateEmail(signupFormElements, formElementIndex, warningElements)   {  
+function validateEmail(emailFormElement, warningElement)   {  
 	//check email validity
 	var emailRegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-	var match = emailRegExp.test(signupFormElements.item(formElementIndex).value);
+	var match = emailRegExp.test(emailFormElement.value);
 	if(!match){
-		warningElements.item(formElementIndex).innerHTML = "invalid email";
+		warningElement.innerHTML = "invalid email";
 	} else {
-		warningElements.item(formElementIndex).innerHTML = "";
+		warningElement.innerHTML = "";
 	}
 	
 	return match;  
 }  
 
-function validatePassword(signupFormElements, formElementIndex, warningElements) {
+function validatePassword(passwordFormElement, warningElement) {
 	//check password validity
 	var passwordRegExp = /^[A-Za-z0-9]+$/;
-	var match = passwordRegExp.test(signupFormElements.item(formElementIndex).value);
+	var match = passwordRegExp.test(passwordFormElement.value);
 	if(!match){
-		warningElements.item(formElementIndex).innerHTML = "invalid password: only letters and numbers are allowed";
+		warningElement.innerHTML = "invalid password: only letters and numbers are allowed";
 	} else {
-		warningElements.item(formElementIndex).innerHTML = "";
+		warningElement.innerHTML = "";
 	}
 	
 	return match;  

@@ -83,6 +83,7 @@
 	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="../../js/add_reservation_js_functions.js"></script>
 	<link rel="stylesheet" href="../../css/common_style.css">
+	<link rel="stylesheet" href="../../css/add_reservation_style.css">
 </head>
 <body>
 	<header>
@@ -95,15 +96,34 @@
 		<?php test_js();?>
 		<h2>Add Reservation</h2>
 		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateAddReservationForm()"> 
-			<span class="warning">All fields are required</span>
-			<table id="add_reservation_table">
-			</table>
+			<p>New Reservation Form</p>
+			<ul id="add-reservation-list">
+				<li>
+					<label>
+						Starting Time (hh:mm):
+					</label>
+					<select id="start-h-select" name="start_time_h" required="required">
+					</select>
+					:
+					<select id="start-m-select" name="start_time_m" required="required">
+					</select>
+				</li>
+				<li>
+					<label>
+						Duration Time (min):
+					</label>
+					<select id="duration-select" name="duration_time" required="required">
+					</select>
+				</li>
+			</ul>
 			<input type="submit" value="Add">
 			<input type="button" value="Clear" onclick="clearAddReservationForm()">
 		</form>
-		<?php echo $insert_operation_result?>
+		<div id="insert-operation-result">
+			<?php echo $insert_operation_result?>
+		</div>
 		<script type="text/javascript">
-			createAddReservationTable();
+			createAddReservationOptions();
 		</script>
 	</section>
 	<footer>

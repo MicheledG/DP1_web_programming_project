@@ -13,7 +13,7 @@
 	
 	
  	$user_signedin = false;
- 	$insert_operation_result = "";
+ 	$signup_error = "";
 	$user_name = "";
 	$user_lastname = "";
 	$user_email = "";
@@ -26,7 +26,7 @@
 		$elapsed_time = time() - $_SESSION['timeout'];
 		if($elapsed_time < MAX_SESSION_TIME){
 			//still valid session
-			$insert_operation_result = '<span class="warning">'.'User "'
+			$signup_error = '<span class="warning">'.'User "'
 						.$_SESSION['user_email'].'" already signed in!</span>';
 			//set the new timeout session time
 			$_SESSION['timeout'] = time();
@@ -65,9 +65,6 @@
 			$inserted_user = insert_new_user($conn_id, $user_name, $user_lastname,
 					$user_email, $user_password);
 			
-			$insert_operation_result = '<span class="success">'."user with username '"
-					.$user_email."' added succesfully!".'</span>';
-			
 			//with a succesful sign in set the session parameters
 			$_SESSION['user_id'] = $inserted_user['user_id'];
 			$_SESSION['user_email'] = $inserted_user['email'];
@@ -80,7 +77,7 @@
 			redirect_with_status("home.php", "signed_up");
 		}
 		catch (Exception $e) {
-			$insert_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';
+			$signup_error = '<span class="warning">'. $e->getMessage() . '</span>';
 		}
 	}
 ?>
@@ -102,47 +99,63 @@
 	</nav>
 	<section>
 		<?php test_js()?>
-		
 		<h2>Sign Up</h2>
-		<fieldset>
-			<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSignupForm()"> 
-				<table>
-					<tr>
-						<td>Name:</td>
-						<td><input type="text" name="user_name" class="user_input" required="required"
-							value="<?php echo $user_name;?>"></td>
-						<td><span class="warning"></span></td>
-					</tr>
-					<tr>
-						<td>Last Name:</td>
-						<td><input type="text" name="user_lastname" class="user_input" required="required"
-							value="<?php echo $user_lastname;?>"></td>
-						<td><span class="warning"></span></td>
-					</tr>
-					<tr>
-						<td>Email:</td>
-						<td><input type="email" name="user_email" class="user_input" required="required"
-							value="<?php echo $user_email;?>"></td>
-						<td><span class="warning"></span></td>
-					</tr>
-					<tr>
-						<td>Password:</td>
-						<td><input type="password" name="user_password" class="user_input" required="required"
-							value="<?php echo $user_password;?>"></td>
-						<td><span class="warning"></span></td>
-					</tr>
-					<tr>
-						<td>Confirm Password:</td>
-						<td><input type="password" name="user_confirm_password" class="user_input" required="required"></td>
-						<td><span class="warning"></span></td>
-					</tr>
-				</table>
-				<span class="warining">All fields are required</span>
+		<div id="signup-error-div">
+			<p id="signup-error-msg" class="warning"><?php echo $signup_error?></p>
+		</div>	
+		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" 
+		onsubmit="return validateSignupForm()"> 
+			<p>Insert your data</p>
+			<ul id="sign-up-list">
+				<li>
+					<label>
+						Name:
+					</label>
+					<input id="name" type="text" name="user_name" class="user_input" 
+					required="required" value="<?php echo $user_name;?>">
+					<p id="name-warning" class="warning"></p>
+				</li>
+				<li>
+					<label>
+						Last Name:
+					</label>
+					<input id="lastname" type="text" name="user_lastname" class="user_input" 
+					required="required" value="<?php echo $user_lastname;?>">
+					<p id="lastname-warning" class="warning"></p>
+				</li>
+				<li>
+					<label>
+						Email:
+					</label>
+					<input id="email" type="email" name="user_email" class="user_input" 
+					required="required" value="<?php echo $user_email;?>">
+					<p id="email-warning" class="warning"></p>
+				</li>
+				<li>
+					<label>
+						Password:
+					</label>
+					<input id="password" type="password" name="user_password" class="user_input" 
+					required="required"	value="<?php echo $user_password;?>">
+					<p id="password-warning" class="warning"></p>
+				</li>
+				<li>
+					<label>
+						Confirm Password:
+					</label>
+					<input id="confirm-password" type="password" name="user_confirm_password" class="user_input" 
+					required="required">
+					<p id="confirm-password-warning" class="warning"></p>
+				</li>
+				<li>
+					<p class="warning">All fields are required</p>
+				</li>
+			</ul>
+			<div id="buttons">
 				<input type="submit" value="Submit">
 				<input type="button" value="Clear" onclick="clearSignupForm()">
-			</form>
-		</fieldset>
-		<?php echo $insert_operation_result?>
+			</div>
+		</form>
 	</section>
 	<footer>
 		<?php include_once '../utility/footer.php';?>

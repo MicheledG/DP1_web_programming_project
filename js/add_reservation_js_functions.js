@@ -1,29 +1,17 @@
 //create the internal rows of the add reservation table
-function createAddReservationTable(){
+function createAddReservationOptions(){
 	
 	var MIN_DURATION_TIME = 1; //1 min
 	var MAX_DURATION_TIME = 1440; //1440 min => 24h
 	
-	//retrieve add reservation table
-	var tTable = document.getElementById("add_reservation_table");
+	//retrieve hour starting time select element
+	var hourSelect = document.getElementById("start-h-select");
+	//retrieve min starting time select element
+	var minSelect = document.getElementById("start-m-select");
+	//retrieve duration time select element
+	var minDurationSelect = document.getElementById("duration-select");
 	
-	//create body and the rows to insert the selection items of the form
-	var tBody = document.createElement("tbody");
-	
-	//start time (hh:mm) row 
-	var startTimeRow = document.createElement("tr");
-	
-	var startTimeLabelField = document.createElement("td");
-	var startTimeLabel = document.createElement("label");
-	startTimeLabel.innerHTML = "Starting Time (hh:mm):"
-	startTimeLabelField.appendChild(startTimeLabel);
-	
-	//start time hour (HH:mm) field
-	var hourSelectField = document.createElement("td");
-	var hourSelect = document.createElement("select");
-	//set all attributes for the select
-	hourSelect.name = "start_time_h";
-	hourSelect.required = "true";
+	//create options for hour starting time select
 	var i = 0;
 	for(i = 0; i < 24; i++){
 		var hour = document.createElement("option");
@@ -34,14 +22,8 @@ function createAddReservationTable(){
 		}
 		hourSelect.appendChild(hour);
 	}
-	hourSelectField.appendChild(hourSelect);
 	
-	//start time minutes (hh:MM) field
-	var minSelectField = document.createElement("td");
-	var minSelect = document.createElement("select");
-	//set all attributes for the select
-	minSelect.name = "start_time_m";
-	minSelect.required = "true";
+	//create options for mins starting time select
 	for(i = 0; i < 60; i++){
 		var min = document.createElement("option");
 		min.value = i;
@@ -51,26 +33,8 @@ function createAddReservationTable(){
 		}
 		minSelect.appendChild(min);
 	}
-	minSelectField.appendChild(minSelect);
 	
-	startTimeRow.appendChild(startTimeLabelField);
-	startTimeRow.appendChild(hourSelectField);
-	startTimeRow.appendChild(minSelectField);
-	
-	//duration time (min) row
-	var durationTimeRow = document.createElement("tr");
-	
-	var durationTimeLabelField = document.createElement("td");
-	var durationTimeLabel = document.createElement("label");
-	durationTimeLabel.innerHTML = "Duration Time (min):"
-	durationTimeLabelField.appendChild(durationTimeLabel);
-	
-	//duration time (MIN) field
-	var minDurationSelectField = document.createElement("td");
-	var minDurationSelect = document.createElement("select");
-	//set all attributes for the select
-	minDurationSelect.name = "duration_time";
-	minDurationSelect.required = "true";
+	//create options for duration time select
 	for(i = MIN_DURATION_TIME; i <= MAX_DURATION_TIME; i++){
 		var minDuration = document.createElement("option");
 		minDuration.value = i;
@@ -80,15 +44,7 @@ function createAddReservationTable(){
 		}
 		minDurationSelect.appendChild(minDuration);
 	}
-	minDurationSelectField.appendChild(minDurationSelect);
 	
-	durationTimeRow.appendChild(durationTimeLabelField);
-	durationTimeRow.appendChild(minDurationSelectField);
-	
-	//append the 2 rows and the body
-	tBody.appendChild(startTimeRow);
-	tBody.appendChild(durationTimeRow);
-	tTable.appendChild(tBody);
 }
 
 function leadZero(num, size) {

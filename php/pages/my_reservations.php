@@ -7,7 +7,7 @@
 	require_COOKIE();
 	
 	//check HTTPS connection
-	require_HTTPS();
+	//require_HTTPS();
 	
 	session_start(); 
 	

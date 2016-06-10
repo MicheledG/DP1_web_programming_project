@@ -55,6 +55,7 @@
 <head>
 	<title>Reservation System</title>
 	<link rel="stylesheet" href="../../css/common_style.css">
+	<link rel="stylesheet" href="../../css/signout_style.css">
 </head>
 <body>
 	<div id="main-container">

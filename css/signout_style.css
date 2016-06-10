@@ -1,0 +1,9 @@
+@CHARSET "ISO-8859-1";
+
+#section p {
+	display: block;
+	width: 80%;
+	margin: auto;
+	margin-top: 50px;
+	font-size: large; 
+}

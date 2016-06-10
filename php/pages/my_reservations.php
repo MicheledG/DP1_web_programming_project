@@ -163,8 +163,11 @@
 			<div id="table-warning">
 				<p class="warning"><?php echo $table_warning;?></p>
 			</div>
-			<a href="add_reservation.php"><input type="button" value="Add" ></a>
-			<input type="submit" value="Remove">
+			<div id="buttons">
+				<a href="add_reservation.php"><input type="button" value="Add" ></a>
+				<input type="submit" value="Remove">
+				<input type="button" value="Clear" onclick="clearRemoveReservationsForm()">
+			</div>
 		</form>
 		<div id="remove-operation-result">
 			<?php echo $remove_operation_result;?>	

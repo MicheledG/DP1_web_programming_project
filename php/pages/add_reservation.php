@@ -60,8 +60,8 @@
 			insert_new_reservation($conn_id, $_SESSION['user_id'], $start_time_h,
 					$start_time_m, $duration_time, $available_machine);
 				
-			$insert_operation_result = '<span class="success">'."New reservation added
-					succesfully!".'</span>';
+			$insert_operation_result = '<p class="success">'."New reservation added
+					succesfully!".'</p>';
 			
 			//everything is ok
 			mysqli_commit($conn_id);
@@ -72,7 +72,7 @@
 		}
 		catch (Exception $e) {
 			mysqli_rollback($conn_id);
-			$insert_operation_result = '<span class="warning">'. $e->getMessage() . '</span>';
+			$insert_operation_result = '<p class="warning">'. $e->getMessage() . '</p>';
 		}
 	}
 ?>
@@ -82,6 +82,7 @@
 	<title>Reservation System</title>
 	<script type="text/javascript" src="../../js/add_reservation_js_functions.js"></script>
 	<link rel="stylesheet" href="../../css/common_style.css">
+	<link rel="stylesheet" href="../../css/add_reservation_style.css">
 </head>
 <body>
 	<div id="main-container">
@@ -99,37 +100,50 @@
 			<div id="section">
 				<?php test_js();?>
 				<h2>Add Reservation</h2>
-				<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateAddReservationForm()"> 
-					<p>New Reservation Form</p>
-					<ul id="add-reservation-list">
-						<li>
-							<label>
-								Starting Time (hh:mm):
-							</label>
-							<select id="start-h-select" name="start_time_h" required="required">
-							</select>
-							:
-							<select id="start-m-select" name="start_time_m" required="required">
-							</select>
-						</li>
-						<li>
-							<label>
-								Duration Time (min):
-							</label>
-							<select id="duration-select" name="duration_time" required="required">
-							</select>
-						</li>
-					</ul>
-					<input type="submit" value="Add">
-					<input type="button" value="Clear" onclick="clearAddReservationForm()">
-				</form>
-				<div id="insert-operation-result">
-					<?php echo $insert_operation_result?>
+				
+				<div id="add-reservation-form-container">
+					
+					<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateAddReservationForm()"> 
+						<p>New Reservation Form</p>
+						<ul id="add-reservation-list">
+							<li>
+								<label>
+									Starting Time (hh:mm):
+								</label>
+								<select id="start-h-select" name="start_time_h" required="required">
+								</select>
+								:
+								<select id="start-m-select" name="start_time_m" required="required">
+								</select>
+							</li>
+							<li>
+								<label>
+									Duration Time (min):
+								</label>
+								<select id="duration-select" name="duration_time" required="required">
+								</select>
+							</li>
+						</ul>
+						
+						<script type="text/javascript">
+							createAddReservationOptions();
+						</script>
+						
+						<div id="buttons">
+							<input type="submit" value="Add">
+							<input type="button" value="Clear" onclick="clearAddReservationForm()">
+						</div>
+						
+						<div id="insert-operation-result">
+							<?php echo $insert_operation_result?>
+						</div>
+					
+					</form>
+				
 				</div>
-				<script type="text/javascript">
-					createAddReservationOptions();
-				</script>
+			
 			</div>
+		
 		</div>
 		
 		<div id="footer">

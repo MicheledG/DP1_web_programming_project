@@ -1,21 +1,55 @@
 @CHARSET "ISO-8859-1";
 
-section h2 {
+#section h2 {
 	text-align: center;
 }
 
-#add-reservation-table {
-	border-collapse: collapse;
-	border-style: solid;
+#add-reservation-form-container {
+	min-width: 300px;
+	width: 40%;
+	margin: auto;
+}
+
+#add-reservation-form-container form {
+	border: solid 1px black;
+	height: 220px;		
+}
+
+#add-reservation-form-container p {
+	font-size: large;
 	text-align: center;
+}
+
+#add-reservation-form-container ul {
+	list-style: none;
+	padding-left: 0px;
+	text-align: center;
+}
+
+#add-reservation-form-container li {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#buttons {
+	display: flex;
+	
+	margin: auto;
+	width: 170px;
+	
+	flex-direction: row;
+}
+
+#buttons input {
+	display: block;
+	width: 80px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#insert-operation-result {
 	width: 100%;
-}
-
-#add-reservation-table caption {
-	text-align: left;
-	padding-bottom: 10px;
-}
-
-#add-reservation-table tbody {
-	font-weight: normal;
+	text-align: center;
 }

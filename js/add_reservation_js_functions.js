@@ -75,4 +75,6 @@ function clearAddReservationForm(){
 	for(var i = 0; i < selectElements.length; i++){
 		selectElements.item(i).selectedIndex = 0; //reset the selected options for all the select
 	}
+	
+	document.getElementById("insert-operation-result").innerHTML = "";
 }

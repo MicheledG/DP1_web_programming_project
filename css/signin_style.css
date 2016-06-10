@@ -4,47 +4,34 @@
 	text-align: center;
 }
 
-#add-reservation-form-container {
+#signin-form-container {
 	min-width: 300px;
 	width: 40%;
 	margin: auto;
 }
 
-#add-reservation-form-container form {
+#signin-form-container form {
 	border: solid 1px black;		
 }
 
-#add-reservation-form-container label {
+#signin-form-container label {
 	display: inline-block;
-	width: 200px;
+	width: 150px;
 	text-align: center;		
 }
 
-#start-select-wrapper {
-	display: inline-block;
-	width: 200px;
-}
-
-#duration-select {
-	display: inline-block;
-	direction: rtl;
-	width: 60px;
-	margin-left: 70px;
-	margin-right: 70px; 
-}
-
-#add-reservation-form-container p {
+#signin-form-container p {
 	font-size: large;
 	text-align: center;
 }
 
-#add-reservation-form-container ul {
+#signin-form-container ul {
 	list-style: none;
 	padding-left: 0px;
 	text-align: center;
 }
 
-#add-reservation-form-container li {
+#signin-form-container li {
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -67,7 +54,7 @@
 	margin-bottom: 10px;
 }
 
-#insert-operation-result {
+#signin-error-div {
 	width: 100%;
 	text-align: center;
 }

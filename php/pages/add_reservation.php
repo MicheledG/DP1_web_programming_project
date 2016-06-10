@@ -110,11 +110,13 @@
 								<label>
 									Starting Time (hh:mm):
 								</label>
-								<select id="start-h-select" name="start_time_h" required="required">
-								</select>
-								:
-								<select id="start-m-select" name="start_time_m" required="required">
-								</select>
+								<div id="start-select-wrapper">
+									<select id="start-h-select" name="start_time_h" required="required">
+									</select>
+									:
+									<select id="start-m-select" name="start_time_m" required="required">
+									</select>
+								</div>
 							</li>
 							<li>
 								<label>

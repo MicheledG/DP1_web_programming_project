@@ -99,6 +99,7 @@
 	<script type="text/javascript" src="../../js/validate_input_js_functions.js"></script>
 	<script type="text/javascript" src="../../js/signin_js_functions.js"></script>
 	<link rel="stylesheet" href="../../css/common_style.css">
+	<link rel="stylesheet" href="../../css/signin_style.css">
 </head>
 <body>
 	<div id="main-container">
@@ -115,35 +116,48 @@
 			
 			<div id="section">
 				<?php test_js();?>
-				<h2>Sign In</h2>
-				<div id="signin-error-div">
-					<p id="signin-error-msg" class="warning"><?php echo $signin_error?></p>
-				</div>	
-				<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSigninForm()"> 
-					<p>Insert your credentials</p>
-					<ul id="sign-in-list">
-					<li>
-						<label>
-							Email:
-						</label>
-						<input id="email" type="email" name="user_email" class="user_input" 
-						required="required" value="<?php echo $user_email;?>">
-						<p id="email-warning" class="warning"></p>
-					</li>
-					<li>
-						<label>
-							Password:
-						</label>
-						<input id="password" type="password" name="user_password" class="user_input" 
-						required="required"	value="<?php echo $user_password;?>">
-						<p id="password-warning" class="warning"></p>
-					</li>
-				</ul>
-				<div id="buttons">
-					<input id="submit" type="submit" value="Submit">
-					<input id="clear" type="button" value="Clear" onclick="clearSigninForm()">
+				<h2>Sign In</h2>	
+					
+				<div id="signin-form-container">
+				
+					<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSigninForm()"> 
+						<p>Insert your credentials</p>
+						<ul id="sign-in-list">
+							<li>
+								<label>
+									Email:
+								</label>
+								<input id="email" type="email" name="user_email" class="user_input" 
+								required="required" value="<?php echo $user_email;?>">
+							</li>
+							<li>
+								<p id="email-warning" class="warning"></p>
+							</li>
+							<li>
+								<label>
+									Password:
+								</label>
+								<input id="password" type="password" name="user_password" class="user_input" 
+								required="required"	value="<?php echo $user_password;?>">
+							</li>
+							<li>
+								<p id="password-warning" class="warning"></p>
+							</li>
+						</ul>
+					
+						<div id="buttons">
+							<input id="submit" type="submit" value="Submit">
+							<input id="clear" type="button" value="Clear" onclick="clearSigninForm()">
+						</div>
+					
+						<div id="signin-error-div">
+							<p id="signin-error-msg" class="warning"><?php echo $signin_error?></p>
+						</div>
+				
+					</form>
+		
 				</div>
-				</form>
+				
 			</div>
 		
 		</div>

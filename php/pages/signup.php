@@ -88,6 +88,7 @@
 	<script type="text/javascript" src="../../js/validate_input_js_functions.js"></script>
 	<script type="text/javascript" src="../../js/signup_js_functions.js"></script>
 	<link rel="stylesheet" href="../../css/common_style.css">
+	<link rel="stylesheet" href="../../css/signup_style.css">
 </head>
 <body>
 	<div id="main-container">
@@ -105,62 +106,81 @@
 			<div id="section">
 				<?php test_js()?>
 				<h2>Sign Up</h2>
-				<div id="signup-error-div">
-					<p id="signup-error-msg" class="warning"><?php echo $signup_error?></p>
-				</div>	
-				<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" 
-				onsubmit="return validateSignupForm()"> 
-					<p>Insert your data</p>
-					<ul id="sign-up-list">
-						<li>
-							<label>
-								Name:
-							</label>
-							<input id="name" type="text" name="user_name" class="user_input" 
-							required="required" value="<?php echo $user_name;?>">
-							<p id="name-warning" class="warning"></p>
-						</li>
-						<li>
-							<label>
-								Last Name:
-							</label>
-							<input id="lastname" type="text" name="user_lastname" class="user_input" 
-							required="required" value="<?php echo $user_lastname;?>">
-							<p id="lastname-warning" class="warning"></p>
-						</li>
-						<li>
-							<label>
-								Email:
-							</label>
-							<input id="email" type="email" name="user_email" class="user_input" 
-							required="required" value="<?php echo $user_email;?>">
-							<p id="email-warning" class="warning"></p>
-						</li>
-						<li>
-							<label>
-								Password:
-							</label>
-							<input id="password" type="password" name="user_password" class="user_input" 
-							required="required"	value="<?php echo $user_password;?>">
-							<p id="password-warning" class="warning"></p>
-						</li>
-						<li>
-							<label>
-								Confirm Password:
-							</label>
-							<input id="confirm-password" type="password" name="user_confirm_password" class="user_input" 
-							required="required">
-							<p id="confirm-password-warning" class="warning"></p>
-						</li>
-						<li>
-							<p class="warning">All fields are required</p>
-						</li>
-					</ul>
-					<div id="buttons">
-						<input type="submit" value="Submit">
-						<input type="button" value="Clear" onclick="clearSignupForm()">
-					</div>
-				</form>
+				
+				<div id="signup-form-container">
+					
+					<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" 
+						onsubmit="return validateSignupForm()"> 
+						<p>Insert your data</p>
+						<ul id="sign-up-list">
+							<li>
+								<label>
+									Name:
+								</label>
+								<input id="name" type="text" name="user_name" class="user_input" 
+								required="required" value="<?php echo $user_name;?>">
+							</li>
+							<li>
+								<p id="name-warning" class="warning"></p>
+							</li>
+							<li>
+								<label>
+									Last Name:
+								</label>
+								<input id="lastname" type="text" name="user_lastname" class="user_input" 
+								required="required" value="<?php echo $user_lastname;?>">
+							</li>
+							<li>	
+								<p id="lastname-warning" class="warning"></p>
+							</li>
+							<li>
+								<label>
+									Email:
+								</label>
+								<input id="email" type="email" name="user_email" class="user_input" 
+								required="required" value="<?php echo $user_email;?>">
+							</li>
+							<li>
+								<p id="email-warning" class="warning"></p>
+							</li>
+							<li>
+								<label>
+									Password:
+								</label>
+								<input id="password" type="password" name="user_password" class="user_input" 
+								required="required"	value="<?php echo $user_password;?>">
+							</li>
+							<li>
+								<p id="password-warning" class="warning"></p>
+							</li>
+							<li>
+								<label>
+									Confirm Password:
+								</label>
+								<input id="confirm-password" type="password" name="user_confirm_password" class="user_input" 
+								required="required">
+							</li>
+							<li>
+								<p id="confirm-password-warning" class="warning"></p>
+							</li>
+							<li>
+								<p class="warning">All fields are required</p>
+							</li>
+						</ul>
+						
+						<div id="buttons">
+							<input type="submit" value="Submit">
+							<input type="button" value="Clear" onclick="clearSignupForm()">
+						</div>
+						
+						<div id="signup-error-div">
+							<p id="signup-error-msg" class="warning"><?php echo $signup_error?></p>
+						</div>
+						
+					</form>
+					
+				</div>
+				
 			</div>
 		
 		</div>

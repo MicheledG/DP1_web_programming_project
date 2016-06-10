@@ -62,94 +62,109 @@
 	<link rel="stylesheet" href="../../css/home_style.css">
 </head>
 <body>
-	<header>
-		<h1>Reservation System</h1>
-	</header>
-	<nav>
-		<?php include_once '../utility/nav.php'?>
-	</nav>
-	<section>
-		<?php test_js();?>
-		<h2>Home</h2>
-		<table id="reservations-table">
-			<caption>
-				Reservations Table
-			</caption>
-			<thead>
-				<tr>
-					<td>Reservation IDs</td>
-					<td>Starting Times</td>
-					<td>Duration Times</td>
-					<td>Selected Machines</td>
-					<td>Users</td>
-				</tr>
-			</thead>
-			<tbody>
-				<?php //retrieve reservations for the all the users 
-					
-					$tot_reservations = "";
-					$table_warning = "";
-
-					try{
-						$conn_id = connect_to_project_db();
-					
-						$reservations = retrieve_reservations($conn_id);
-					
-						if(mysqli_num_rows($reservations) > 0){
-							//put in the table the reservations
-							$reservation_number = 0;
-							while($reservation = mysqli_fetch_assoc($reservations)) {
-								//compute start_time_h and start_time_m
-								$start_time_h = floor($reservation['start_time'] / 60);
-								$start_time_m = $reservation['start_time'] % 60;
-								
-								//update number of reservation
-								$reservation_number++;
-								?>
-																
-								<!-- output the reservation row -->
-								<tr>
-									<td>
-										<?php echo $reservation['res_id']; ?>
-									</td>
-									<td>
-										<?php printf("%02d:%02d", $start_time_h, $start_time_m); ?>
-									</td>
-									<td>
-										<?php echo $reservation['duration_time']; ?>
-									</td>
-									<td>
-										<?php echo $reservation['selected_machine']; ?>
-									</td>
-									<td>
-										<?php echo $reservation['email']; ?>
-									</td>
-								</tr>
-								
-								<?php 
+	<div id="main-container">
+		
+		<div id="header">
+			<h1>Reservation System</h1>
+		</div>
+		
+		<div id="center-container">
+			
+			<div id="nav">
+				<?php include_once '../utility/nav.php'?>
+			</div>
+			
+			<div id="section">
+				<?php test_js();?>
+				<h2>Home</h2>
+				<table id="reservations-table">
+					<caption>
+						Reservations Table
+					</caption>
+					<thead>
+						<tr>
+							<td>Reservation IDs</td>
+							<td>Starting Times</td>
+							<td>Duration Times</td>
+							<td>Selected Machines</td>
+							<td>Users</td>
+						</tr>
+					</thead>
+					<tbody>
+						<?php //retrieve reservations for the all the users 
+							
+							$tot_reservations = "";
+							$table_warning = "";
+		
+							try{
+								$conn_id = connect_to_project_db();
+							
+								$reservations = retrieve_reservations($conn_id);
+							
+								if(mysqli_num_rows($reservations) > 0){
+									//put in the table the reservations
+									$reservation_number = 0;
+									while($reservation = mysqli_fetch_assoc($reservations)) {
+										//compute start_time_h and start_time_m
+										$start_time_h = floor($reservation['start_time'] / 60);
+										$start_time_m = $reservation['start_time'] % 60;
+										
+										//update number of reservation
+										$reservation_number++;
+										?>
+																		
+										<!-- output the reservation row -->
+										<tr>
+											<td>
+												<?php echo $reservation['res_id']; ?>
+											</td>
+											<td>
+												<?php printf("%02d:%02d", $start_time_h, $start_time_m); ?>
+											</td>
+											<td>
+												<?php echo $reservation['duration_time']; ?>
+											</td>
+											<td>
+												<?php echo $reservation['selected_machine']; ?>
+											</td>
+											<td>
+												<?php echo $reservation['email']; ?>
+											</td>
+										</tr>
+										
+										<?php 
+									}
+									$tot_reservations = $reservation_number;
+								}
+								else {
+									//no reservations available
+									$tot_reservations = 0;
+								}
 							}
-							$tot_reservations = $reservation_number;
-						}
-						else {
-							//no reservations available
-							$tot_reservations = 0;
-						}
-					}
-					catch (Exception $e) {
-						$table_warning = "Error occured downloading reservations";
-					}
-				?>
-			</tbody>
-		</table>
-		<div id="tot-reservations">
-			<p>Total reservations: <?php echo $tot_reservations;?></p>
+							catch (Exception $e) {
+								$table_warning = "Error occured downloading reservations";
+							}
+						?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5">
+								<p>Total reservations: <?php echo $tot_reservations;?></p>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<div id="tot-reservations">
+					
+				</div>
+				<div id="table-warning">
+					<p class="warning"><?php echo $table_warning;?></p>
+				</div>
+			</div>
 		</div>
-		<div id="table-warning">
-			<p class="warning"><?php echo $table_warning;?></p>
+		<div id="footer">
+			<?php include_once '../utility/footer.php'?>
 		</div>
-	</section>
-	<footer>
-		<?php include_once '../utility/footer.php'?>
-	</footer>
+	</div>
 </body>
 </html>

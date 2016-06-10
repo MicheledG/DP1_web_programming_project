@@ -154,9 +154,7 @@
 						</tr>
 					</tfoot>
 				</table>
-				<div id="tot-reservations">
-					
-				</div>
+				
 				<div id="table-warning">
 					<p class="warning"><?php echo $table_warning;?></p>
 				</div>

@@ -57,18 +57,30 @@
 	<link rel="stylesheet" href="../../css/common_style.css">
 </head>
 <body>
-	<header>
-		<h1>Reservation System</h1>
-	</header>
-	<nav>
-		<?php include_once '../utility/nav.php'?>
-	</nav>
-	<section>
-		<?php test_js();?>
-		<p class="success"><?php echo $signout_result;?> </p>
-	</section>
-	<footer>
-		<?php include_once '../utility/footer.php'?>
-	</footer>
+	<div id="main-container">
+		
+		<div id="header">
+			<h1>Reservation System</h1>
+		</div>
+		
+		<div id="center-container">
+			
+			<div id="nav">
+				<?php include_once '../utility/nav.php'?>
+			</div>
+			
+			<div id="section">
+				<?php test_js();?>
+				<p class="success"><?php echo $signout_result;?> </p>
+			</div>
+		
+		</div>
+		
+		<div id="footer">
+			<?php include_once '../utility/footer.php'?>
+		</div>
+		
+	</div>
+	
 </body>
 </html>

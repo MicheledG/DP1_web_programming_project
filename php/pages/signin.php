@@ -101,46 +101,58 @@
 	<link rel="stylesheet" href="../../css/common_style.css">
 </head>
 <body>
-	<header>
-		<h1>Reservation System</h1>
-	</header>
-	<nav>
-		<?php include_once '../utility/nav.php'?>
-	</nav>
-	<section>
-		<?php test_js();?>
-		<h2>Sign In</h2>
-		<div id="signin-error-div">
-			<p id="signin-error-msg" class="warning"><?php echo $signin_error?></p>
-		</div>	
-		<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSigninForm()"> 
-			<p>Insert your credentials</p>
-			<ul id="sign-in-list">
-			<li>
-				<label>
-					Email:
-				</label>
-				<input id="email" type="email" name="user_email" class="user_input" 
-				required="required" value="<?php echo $user_email;?>">
-				<p id="email-warning" class="warning"></p>
-			</li>
-			<li>
-				<label>
-					Password:
-				</label>
-				<input id="password" type="password" name="user_password" class="user_input" 
-				required="required"	value="<?php echo $user_password;?>">
-				<p id="password-warning" class="warning"></p>
-			</li>
-		</ul>
-		<div id="buttons">
-			<input id="submit" type="submit" value="Submit">
-			<input id="clear" type="button" value="Clear" onclick="clearSigninForm()">
+	<div id="main-container">
+		
+		<div id="header">
+			<h1>Reservation System</h1>
 		</div>
-		</form>
-	</section>
-	<footer>
-		<?php include_once '../utility/footer.php';?>
-	</footer>
+		
+		<div id="center-container">
+			
+			<div id="nav">
+				<?php include_once '../utility/nav.php'?>
+			</div>
+			
+			<div id="section">
+				<?php test_js();?>
+				<h2>Sign In</h2>
+				<div id="signin-error-div">
+					<p id="signin-error-msg" class="warning"><?php echo $signin_error?></p>
+				</div>	
+				<form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" onsubmit="return validateSigninForm()"> 
+					<p>Insert your credentials</p>
+					<ul id="sign-in-list">
+					<li>
+						<label>
+							Email:
+						</label>
+						<input id="email" type="email" name="user_email" class="user_input" 
+						required="required" value="<?php echo $user_email;?>">
+						<p id="email-warning" class="warning"></p>
+					</li>
+					<li>
+						<label>
+							Password:
+						</label>
+						<input id="password" type="password" name="user_password" class="user_input" 
+						required="required"	value="<?php echo $user_password;?>">
+						<p id="password-warning" class="warning"></p>
+					</li>
+				</ul>
+				<div id="buttons">
+					<input id="submit" type="submit" value="Submit">
+					<input id="clear" type="button" value="Clear" onclick="clearSigninForm()">
+				</div>
+				</form>
+			</div>
+		
+		</div>
+		
+		<div id="footer">
+			<?php include_once '../utility/footer.php';?>
+		</div>
+		
+	</div>
+	
 </body>
 </html>

@@ -1,18 +1,27 @@
 @CHARSET "ISO-8859-1";
 
-section h2 {
+#section h2 {
 	text-align: center;
 }
 
 #my-reservations-table {
 	border-collapse: collapse;
-	border-style: solid;
+	border: solid 1px black;
+	min-width: 500px;
+	width: 80%;
+	margin: auto;
+	
+	background-color: white;	
 	text-align: center;
-	width: 100%;
+}
+
+#my-reservations-table td {
+	border-right: solid 1px;
+	border-left: solid 1px;
 }
 
 #my-reservations-table caption {
-	text-align: left;
+	font-size: large;
 	padding-bottom: 10px;
 }
 
@@ -22,6 +31,8 @@ section h2 {
 }
 
 #my-reservations-table thead td { 
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -30,11 +41,61 @@ section h2 {
 	font-weight: normal;
 }
 
-#my-reservations-table tbody tr:nth-child(even) {
-	background-color: #f2f2f2;
+#my-reservations-table tbody td{
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
-#tot-reservations p {
+#my-reservations-table tbody tr:nth-child(even) {
+	background-color: #e0e0e0;
+}
+
+#my-reservations-table tfoot {
+	background-color: #3399ff;
+	font-weight: bold;
+}
+
+#my-reservations-table tfoot p{
+	margin: 0px;
+	padding-top: 10px;
+	padding-bottom: 10px; 
+}
+
+#table-warning {
+	width: 300px;
+	margin: auto;
+	text-align: center;
+}
+
+#buttons {
+	display: flex;
+	
+	margin: auto;
+	width: 260px;
+	
+	flex-direction: row;
+}
+
+#buttons input {
+	display: block;
+	width: 80px;
+	margin-left: 5px;
+	margin-right: 5px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+#buttons a:LINK {
+	text-decoration: none;
+	color: black;
+}
+
+#buttons a:VISITED {
+	color: black;
+}
+
+#remove-operation-result {
+	width: 300px;
+	margin: auto;
+	text-align: center;
 }

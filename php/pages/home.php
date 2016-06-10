@@ -19,37 +19,44 @@
 			//session not expired
 			//update the session timeout
 			$_SESSION['timeout'] = time();
-			//check user status
-			if(isset($_GET['status'])){
-				switch ($_GET['status']){
-					case "signed_in":
-						//user just signed in
-						echo '<script type="text/javascript">
-							alert("User \"'.$_SESSION['user_email'].'\" succesfully signed in!");
-							</script>';
-						break;
-					case "signed_up":
-						//user just signed up
-						echo '<script type="text/javascript">
-							alert("User \"'.$_SESSION['user_email'].'\" succesfully signed up!");
-							</script>';
-						break;
-					default:
-						//unexpected
-						break;
-				}
-			}
+			$active_session = true;
 		} 
 		else {
-			//session expired => redirect to sign out
-			redirect_with_status("signout.php", "expired");
+			//on the Homepage don't do the redirect
 		}
 	}
-	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+	<?php
+	//if there is an active session check the user status (just signed in/signed up)
+	if(isset($active_session)) {
+		if(isset($_GET['status'])) {
+			switch ($_GET['status']) {
+				case "signed_in":
+					//user just signed in
+					?>
+					<script type="text/javascript">
+						alert("User \"<?php echo $_SESSION['user_email']; ?>\" succesfully signed in!");
+					</script>
+					<?php 
+					break;
+				case "signed_up":
+					//user just signed up
+					?>
+					<script type="text/javascript">
+						alert("User \"<?php echo $_SESSION['user_email']; ?>\" succesfully signed up!");
+					</script>
+					<?php 
+						break;
+					default:
+						//unexpected
+						break;
+			}
+		}	
+	}
+	?>
 	<title>Reservation System</title>
 	<link rel="stylesheet" href="../../css/common_style.css">
 	<link rel="stylesheet" href="../../css/home_style.css">

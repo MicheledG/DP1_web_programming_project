@@ -25,31 +25,12 @@
 			$_SESSION['timeout'] = time();
 			$user_signedin = true;
 			$signin_error = 'User "'.$_SESSION['user_email'].'" already signed in';
-			echo '<script type="text/javascript">
-					alert("User '.$_SESSION['user_email'].' already signed in!");
-				</script>';
 		} 
 		else {
 			//session expired => redirect to sign out
 			redirect_with_status("signout.php", "expired");
 		}
 	}
-	elseif(isset($_GET['status'])){
-		//check what cause the redirect to the sign in
-		switch ($_GET['status']){
-			case "expired":
-				//expired session
-				echo '<script type="text/javascript">
-					alert("Expired session, please sign in again!");
-					</script>';
-				break;
-			default:
-				//unexpected
-				$signin_error = "Unexpected session status";
-				break;
-		}
-	}
-	
 	
 ?>
 <?php //manage the sign in form
@@ -88,6 +69,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<?php
+	if($user_signedin){
+		?>
+		<script type="text/javascript">
+			alert("User '.$_SESSION['user_email'].' already signed in!");
+		</script>
+		<?php 
+	}
+	elseif(isset($_GET['status'])){
+		//check the cause of redirect to the sign in
+		switch ($_GET['status']){
+			case "expired":
+				//expired session
+				?>
+				<script type="text/javascript">
+					alert("Expired session, please sign in again!");
+				</script>
+				<?php 	
+				break;
+			default:
+				//unexpected
+				$signin_error = "Unexpected session status";
+				break;
+		}
+	}
+	?>
 	<title>Reservation System</title>
 	<script type="text/javascript" src="../../js/validate_input_js_functions.js"></script>
 	<script type="text/javascript" src="../../js/signin_js_functions.js"></script>

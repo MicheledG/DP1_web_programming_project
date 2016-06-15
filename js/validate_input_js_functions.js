@@ -1,28 +1,41 @@
 function validateName(nameFormElement, warningElement) {
+	warningElement.innerHTML = "";
+	var validName = true;
 	//check name validity
 	var nameRegExp = /^[A-Za-z ]+$/;
-	//var nameRegExpSecondLevel = new RegExp("/^[A-Za-z]+$/");
-	var match = nameRegExp.test(nameFormElement.value.trim());
-	if(!match){
-		warningElement.innerHTML = "invalid name: only letters and spaces are allowed";
-	} else {
-		warningElement.innerHTML = "";
+	var name = nameFormElement.value.trim();
+	if (name.length <= 255) {
+		validName = nameRegExp.test(name);
+		if(!validName){
+			warningElement.innerHTML = "invalid name: only letters and spaces are allowed";
+		}
+	}
+	else {
+		validName = false;
+		warningElement.innerHTML = "invalid name: to many characters (max 255)";
 	}
 	
-	return match;
+	return validName;
 }
 
 function validateEmail(emailFormElement, warningElement)   {  
+	warningElement.innerHTML = "";
+	var validEmail = true;
 	//check email validity
 	var emailRegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-	var match = emailRegExp.test(emailFormElement.value);
-	if(!match){
-		warningElement.innerHTML = "invalid email";
-	} else {
-		warningElement.innerHTML = "";
+	var email = emailFormElement.value.trim();
+	if (email.length <= 255 ) {
+		validEmail = emailRegExp.test(email);
+		if(!validEmail){
+			warningElement.innerHTML = "invalid email";
+		}
+	}
+	else {
+		validEmail = false;
+		warningElement.innerHTML = "invalid email: to many characters (max 255)";
 	}
 	
-	return match;  
+	return validEmail;  
 }  
 
 function validatePassword(passwordFormElement, warningElement) {

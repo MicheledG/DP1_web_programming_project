@@ -71,7 +71,7 @@
 	display: flex;
 	
 	margin: auto;
-	width: 260px;
+	width: 180px;
 	
 	flex-direction: row;
 }
@@ -83,20 +83,6 @@
 	margin-right: 5px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-}
-
-#button a {
-	display: inline-block;
-}
-
-#buttons a:LINK {
-	text-decoration: none;
-	color: black;
-	cursor: default;
-}
-
-#buttons a:VISITED {
-	color: black;
 }
 
 #remove-operation-result {

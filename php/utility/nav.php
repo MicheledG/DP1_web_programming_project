@@ -9,6 +9,7 @@
 			<ul>
 				<li><a href="home.php">Home</a></li>
 				<li><a href="my_reservations.php">My Reservations</a></li>
+				<li><a href="add_reservation.php">Add Reservation</a></li>
 				<li><a href="signout.php">Sign Out</a></li>
 			</ul>
 		</div>

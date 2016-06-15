@@ -142,7 +142,7 @@
 								}
 							}
 							catch (Exception $e) {
-								$table_warning = "Error occured downloading reservations";
+								$table_warning = "Error occured downloading reservations ". $e->getMessage();
 							}
 						?>
 					</tbody>

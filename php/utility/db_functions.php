@@ -23,13 +23,13 @@ function disconnect_to_project_db($conn_id) {
 
 function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $user_password) {
 	
-	//prepare the value to store inside the USERS TABLE
+	//prepare the value to store inside the users TABLE
 	$user_name = sanitize_user_input($user_name, $conn_id);
 	$user_lastname = sanitize_user_input($user_lastname, $conn_id);
 	$user_email = sanitize_user_input($user_email, $conn_id);
 	$user_password = md5(sanitize_user_input($user_password, $conn_id));
 	
-	$sql_query = "INSERT INTO USERS (user_id, email, password, name, lastname)
+	$sql_query = "INSERT INTO users (user_id, email, password, name, lastname)
 			VALUES ('','".$user_email."','".$user_password."','"
 					.$user_name."','".$user_lastname."')";
 	
@@ -42,7 +42,7 @@ function insert_new_user($conn_id, $user_name, $user_lastname, $user_email, $use
 	}
 	
 	//if everything ok return the stored user values
-	$sql_query = "SELECT * FROM USERS WHERE email = '".$user_email."'";
+	$sql_query = "SELECT * FROM users WHERE email = '".$user_email."'";
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	
@@ -70,14 +70,14 @@ function retrieve_reservations($conn_id, $user_id = null){
 	//if a user_id is specified retrieve reservations only for that specified user
 	if($user_id != null) {
 		$sql_query = "SELECT res_id, start_time, duration_time, selected_machine, res_time
-			FROM RESERVATIONS
+			FROM reservations
 			WHERE user_id =".$user_id;
 	} 
 	else {
 		$sql_query = "SELECT res_id, start_time, duration_time, selected_machine, email, res_time
-			FROM RESERVATIONS
-			INNER JOIN USERS
-			ON RESERVATIONS.user_id=USERS.user_id";
+			FROM reservations
+			INNER JOIN users
+			ON reservations.user_id=users.user_id";
 	}
 	
 	$sql_query .= "\rORDER BY start_time ASC";
@@ -100,7 +100,7 @@ function retrieve_reservations($conn_id, $user_id = null){
 function delete_reservation($conn_id, $res_id){
 	
 	//check starting time of the reservation
-	$sql_query = "SELECT res_time FROM RESERVATIONS WHERE res_id = ".$res_id;
+	$sql_query = "SELECT res_time FROM reservations WHERE res_id = ".$res_id;
 	
 	$res = mysqli_query($conn_id, $sql_query);
 	
@@ -121,7 +121,7 @@ function delete_reservation($conn_id, $res_id){
 		throw new Exception("exception: cannot remove reservations inserted less than 1 minute ago");
 	}
 	
-	$sql_query = "DELETE FROM RESERVATIONS
+	$sql_query = "DELETE FROM reservations
 			WHERE res_id = ".$res_id;
 	
 	$res = mysqli_query($conn_id, $sql_query);
@@ -141,8 +141,8 @@ function check_machine_availability($conn_id, $start_time_h, $start_time_m, $dur
 	
 	//select all the existing reservation with overlapping time periods
 	$sql_query = "SELECT selected_machine
-			FROM RESERVATIONS
-			WHERE ".$start_time." <= start_time AND ".($start_time + $duration_time)." >= start_time OR 
+			FROM reservations
+			WHERE ".$start_time." <= start_time AND ".($start_time + $duration_time)." > start_time OR 
 					".$start_time.">= start_time AND ".$start_time." <= start_time + duration_time
 			GROUP BY selected_machine";
 	//ADD THE SQL QUERY FOR THE TRANSACTION
@@ -182,7 +182,7 @@ function insert_new_reservation($conn_id, $user_id, $start_time_h, $start_time_m
 	//on the db the start_time is represented in minute
 	$start_time = $start_time_h * HOUR_MIN + $start_time_m;
 	
-	$sql_query = "INSERT INTO RESERVATIONS(res_id, user_id, start_time, duration_time, selected_machine)
+	$sql_query = "INSERT INTO reservations(res_id, user_id, start_time, duration_time, selected_machine)
 			VALUES('','".$user_id."','".$start_time."','".$duration_time."','".$selected_machine."')";
 	
 	$res = mysqli_query($conn_id, $sql_query);
@@ -198,7 +198,7 @@ function search_user($conn_id, $user_email, $user_password){
 	
 	//select the user with the specified credentials
 	$sql_query = "SELECT *
-			FROM USERS
+			FROM users
 			WHERE email = '".$user_email."' AND password = '".$user_password."'";
 	
 	$res = mysqli_query($conn_id, $sql_query);

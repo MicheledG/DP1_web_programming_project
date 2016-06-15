@@ -88,6 +88,14 @@
 				</script>
 				<?php 	
 				break;
+			case "no_signed_in":
+				//not signed in access
+				?>
+				<script type="text/javascript">
+					alert("Access to restrict area, please sign in to continue!");
+				</script>
+				<?php 	
+				break;
 			default:
 				//unexpected
 				$signin_error = "Unexpected session status";

@@ -85,9 +85,24 @@
 	margin-bottom: 10px;
 }
 
+#buttons a {
+	display: inline-block;
+	-webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+	
+	width: 80px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
 #buttons a:LINK {
 	text-decoration: none;
 	color: black;
+	cursor: default;
 }
 
 #buttons a:VISITED {

@@ -23,8 +23,12 @@
 		} 
 		else {
 			//session expired => redirect to sign out
-			redirect_with_status("signout.php", "expired");
+			redirect_with_status("signin.php", "expired");
 		}
+	}
+	else {
+		// no active session => needs to sign-in
+		redirect_with_status("signin.php", "no_signed_in");
 	}
 	
 ?>
@@ -176,7 +180,7 @@
 					</div>
 					
 					<div id="buttons">
-						<a href="add_reservation.php"><input type="button" value="Add" ></a>
+						<a href="add_reservation.php">Add</a>
 						<input type="button" value="Clear" onclick="clearRemoveReservationsForm()">
 						<input type="submit" value="Remove">
 					</div>

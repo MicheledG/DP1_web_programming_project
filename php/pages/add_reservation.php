@@ -24,6 +24,10 @@
 			redirect_with_status("signout.php", "expired");
 		}
 	}
+	else {
+		// no active session => needs to sign-in
+		redirect_with_status("signin.php", "no_signed_in");
+	}
 	
 ?>
 <?php //manage reservation isertion form 

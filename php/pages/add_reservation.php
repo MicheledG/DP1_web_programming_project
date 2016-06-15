@@ -9,7 +9,7 @@
 	session_start(); 
 	
 	//check HTTPS connection
-	//require_HTTPS();
+	require_HTTPS();
 	
 	//check if there is already an opened session
 	if(isset($_SESSION['user_id']) && isset($_SESSION['timeout'])){

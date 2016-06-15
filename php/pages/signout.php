@@ -9,7 +9,7 @@
 	session_start();
 	
 	//check HTTPS connection
-	//require_HTTPS();
+	require_HTTPS();
 	
 	$user_email = "";
 	$signout_result = "";

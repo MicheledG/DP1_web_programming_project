@@ -85,18 +85,8 @@
 	margin-bottom: 10px;
 }
 
-#buttons a {
+#button a {
 	display: inline-block;
-	-webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-	
-	width: 80px;
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	text-align: center;
 }
 
 #buttons a:LINK {
